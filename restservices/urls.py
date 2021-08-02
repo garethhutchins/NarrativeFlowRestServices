@@ -17,11 +17,11 @@ from django.contrib import admin
 from django.urls import include, path, re_path
 from restservices.restservices import views
 from rest_framework import routers
-from restservices.restservices.views import UploadViewSet
+from restservices.restservices.views import GetTextViewSet
 from django.conf.urls import url
 
 router = routers.DefaultRouter()
-router.register(r'gettext', UploadViewSet, basename="gettext")
+router.register(r'gettext', GetTextViewSet, basename="gettext")
 
 urlpatterns = [
     #path('', views.YourView.as_view()),
