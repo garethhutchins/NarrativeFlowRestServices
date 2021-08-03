@@ -17,12 +17,12 @@ from django.contrib import admin
 from django.urls import include, path, re_path
 from restservices.restservices import views
 from rest_framework import routers
-from restservices.restservices.views import GetTextViewSet
+from restservices.restservices.views import GetTextViewSet, StopWordsViewSet
 from django.conf.urls import url
 
 router = routers.DefaultRouter()
 router.register(r'gettext', GetTextViewSet, basename="gettext")
-
+router.register(r'stopwords', StopWordsViewSet, basename="stopwords")
 urlpatterns = [
     #path('', views.YourView.as_view()),
     path('',include(router.urls)),

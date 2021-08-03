@@ -8,12 +8,12 @@ from rest_framework.decorators import parser_classes
 
 from rest_framework.parsers import FileUploadParser
 from rest_framework import status
-import requests
-import re
-import pandas as pd
-import json
-from .serializers import GetTextSerializer
-from django.core.files.storage import FileSystemStorage
+
+from .serializers import GetTextSerializer, RemoveStopWordSerializer
+
+
+from .get_text import get_text
+from .stop_words import remove_stop_words, list_stop_words
 
 class YourView(views.APIView):
 
@@ -23,8 +23,7 @@ class YourView(views.APIView):
         return Response(results)
 
 
-
-# ViewSets define the view behavior
+#Get the Text Elements from Files
 class GetTextViewSet(ViewSet):
     #Define the Get Text Serializer
     serializer_class = GetTextSerializer
@@ -33,47 +32,18 @@ class GetTextViewSet(ViewSet):
         return Response("GET API")
 
     def create(self, request):
-        #Get the variables from the request
-        #Get the File Object
-        file_uploaded = request.FILES.get('file')
-        #Content Type
-        content_type = file_uploaded.content_type
-        #File Name
-        name = file_uploaded.name
-        #Save the file so it can be read
-        fs = FileSystemStorage()
-        filename = fs.save(name, file_uploaded)
-        full_file_path = fs.location + "/" + filename
+        response = get_text(request)
         
-        
-        #Now see if we need to send it to Tika
-        if 'tika' in request._data:
-            tika_url = request._data['tika']
-             #open the file for reading
-            with open(full_file_path, 'rb') as f:
-                payload=f.read()
-            #Add the header
-            headers = {
-                'Content-Type': content_type
-                }
-            #Now delete the file
-            fs.delete(filename)
-            tika_response = requests.request("PUT", tika_url, headers=headers, data=payload)
-            response = tika_response.text
-            if tika_response.status_code != 200:
-                response = tika_response.reason
-        #See if it's a table file
-        if 'selected_column' in request._data:
-            selected_column = request._data['selected_column']
-            #Load the files as a pandas dataframe
-            df = pd.read_csv(full_file_path,index_col=0)
-            #Now delete the file
-            fs.delete(filename)
-            #Now only keep the selected column
-            df = df[selected_column]
-            
-            json_records = df.to_json(orient='records')
-            data = []
-            data = json.loads(json_records)
-            response = data
+        return Response(response)
+
+#Remove the Stop Words
+class StopWordsViewSet(ViewSet):
+
+    #list the Stop words that we'll use
+    def list(self, request):
+        response = list_stop_words(request)
+        return Response(response)
+
+    def create(self, request):
+        response = remove_stop_words(request)
         return Response(response)
