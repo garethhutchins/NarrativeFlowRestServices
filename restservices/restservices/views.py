@@ -38,7 +38,7 @@ class GetTextViewSet(ViewSet):
 
 #Remove the Stop Words
 class StopWordsViewSet(ViewSet):
-
+    serializer_class = RemoveStopWordSerializer
     #list the Stop words that we'll use
     def list(self, request):
         response = list_stop_words(request)

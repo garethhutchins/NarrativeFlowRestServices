@@ -14,7 +14,7 @@ class GetTextSerializer(Serializer):
       fields = ['file','tika','selected_column']   
 
 class RemoveStopWordSerializer(Serializer):
-   text = CharField(allow_blank=False)
+   post_text = CharField(allow_blank=False)
    stop_word_list = CharField(allow_blank=False) 
    class Meta:
-      fields = ['text','stop_word_list'] 
+      fields = ['post_text','stop_word_list'] 

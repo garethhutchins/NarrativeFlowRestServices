@@ -1,23 +1,33 @@
 #This will remove Stop Words from the provided text
 #We will use NLTK but also develop our own aproach
 import nltk
-
+import requests
+import re
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
+from django.core.files.storage import FileSystemStorage
 
 def list_stop_words(request):
-    stops = set(stopwords.words('english'))
+    stop_word_list = request.GET.get('stop_word_list','')
+    if stop_word_list == '':
+        stops = ['nltk']
+    if stop_word_list == 'nltk':
+        stops = set(stopwords.words('english'))
     return stops
 
 
 def remove_stop_words(request):
-    text = request._data['text']
-    stop_word_list = request._data['stop_word_list']
-    if stop_word_list == 'nltk':
-        #Now process the text
-        #Tokenize the Text
+    temp_request_data = request.data.copy()
+    if 'post_text' in temp_request_data:
+    
+        post_text = temp_request_data['post_text']
+        post_stop_word_list = temp_request_data['stop_word_list']
+        if post_stop_word_list == 'nltk':
+            #Now process the text
+            #Convert to Lower Case
+            post_text = post_text.lower()
+            #Tokenize the Text
 
-        #Convert to Lower Case
-        text = text.lower()
+            
 
     return 'Test'
