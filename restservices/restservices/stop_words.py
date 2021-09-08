@@ -5,7 +5,7 @@ import requests
 import re
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
-from django.core.files.storage import FileSystemStorage
+
 
 def list_stop_words(request):
     stop_word_list = request.GET.get('stop_word_list','')
@@ -18,8 +18,8 @@ def list_stop_words(request):
 
 def remove_stop_words(request):
     temp_request_data = request.data.copy()
+    post_text = ""
     if 'post_text' in temp_request_data:
-    
         post_text = temp_request_data['post_text']
         post_stop_word_list = temp_request_data['stop_word_list']
         if post_stop_word_list == 'nltk':
@@ -30,4 +30,4 @@ def remove_stop_words(request):
 
             
 
-    return 'Test'
+    return post_text
