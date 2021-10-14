@@ -9,11 +9,12 @@ from rest_framework.decorators import parser_classes
 from rest_framework.parsers import FileUploadParser
 from rest_framework import status
 
-from .serializers import GetTextSerializer, RemoveStopWordSerializer
+from .serializers import GetTextSerializer, RemoveStopWordSerializer, TrainTopicTableSerializer
 
 
 from .get_text import get_text
 from .stop_words import remove_stop_words, list_stop_words
+from .train_topic_table import list_options
 
 class YourView(views.APIView):
 
@@ -46,4 +47,12 @@ class StopWordsViewSet(ViewSet):
 
     def create(self, request):
         response = remove_stop_words(request)
+        return Response(response)
+
+#Train Topics from Table
+class TrainTopicTableViewSet(ViewSet):
+    serializer_class = TrainTopicTableSerializer
+    #List the Parameters
+    def list(self,request):
+        response = list_options(request)
         return Response(response)

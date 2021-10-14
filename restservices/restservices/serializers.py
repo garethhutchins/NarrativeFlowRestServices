@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from rest_framework.serializers import Serializer, FileField, CharField, IntegerField
+from rest_framework.serializers import Serializer, FileField, CharField, IntegerField, ChoiceField
 
 class YourSerializer(serializers.Serializer):
    """Your data serializer, define your fields here."""
@@ -18,3 +18,12 @@ class RemoveStopWordSerializer(Serializer):
    stop_word_list = CharField(allow_blank=False) 
    class Meta:
       fields = ['post_text','stop_word_list'] 
+
+class TrainTopicTableSerializer(Serializer):
+   file = FileField()
+   selected_column = CharField(allow_blank=False)
+   model_type = ChoiceField(choices = (("LDA","LDA"),("NMF","NMF")))
+   num_topics = IntegerField()
+   normalisation = ChoiceField(choices = (("None","None"),("Stemming","Stemming"),("Lemmatisation","Lemmatisation")))
+   class Meta:
+      fields = ['file','selected_column','model_type','num_topics','normalisation']
