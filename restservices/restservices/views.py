@@ -14,7 +14,7 @@ from .serializers import GetTextSerializer, RemoveStopWordSerializer, TrainTopic
 
 from .get_text import get_text
 from .stop_words import remove_stop_words, list_stop_words
-from .train_topic_table import list_options
+from .train_topic_table import list_options, train_table
 
 class YourView(views.APIView):
 
@@ -55,4 +55,8 @@ class TrainTopicTableViewSet(ViewSet):
     #List the Parameters
     def list(self,request):
         response = list_options(request)
+        return Response(response)
+    #Do a post of content
+    def create(self, request):
+        response = train_table(request)
         return Response(response)
