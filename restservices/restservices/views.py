@@ -54,9 +54,9 @@ class TrainTopicTableViewSet(ViewSet):
     serializer_class = TrainTopicTableSerializer
     #List the Parameters
     def list(self,request):
-        response = list_options(request)
-        return Response(response)
+        response= list_options(request)
+        return Response(response, status=status.HTTP_200_OK)
     #Do a post of content
     def create(self, request):
-        response = train_table(request)
-        return Response(response)
+        response, status_code = train_table(request)
+        return Response(response, status = status_code)
