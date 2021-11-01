@@ -27,8 +27,20 @@ from sklearn.decomposition import NMF, LatentDirichletAllocation, TruncatedSVD
 
 from rest_framework import status
 
+from django.conf import settings as conf_settings
+
+
 #Get the text from the table file
 def get_table_text(table_file,column):
+    #Before we do anything with the data, we need to make sure that all of the settings have been configured
+    persistent_storage = ""
+    if hasattr(conf_settings, 'PERSISTENT_STORAGE'):
+        persistent_storage = conf_settings.PERSISTENT_STORAGE
+    #We now need to see if it's blank, if so we need to return an error    
+    if persistent_storage == "":
+        response = {"Message":"Configure Model Saving Settings in ./service_settings"}
+        status_code = status.HTTP_428_PRECONDITION_REQUIRED
+        return response, status_code
     #First try to see if we can read the file in the correct format
     #First try to read a csv file
     try:
