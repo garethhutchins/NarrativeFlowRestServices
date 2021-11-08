@@ -14,7 +14,8 @@ from nltk.tokenize import word_tokenize
 from nltk.stem.porter import PorterStemmer
 from nltk.probability import FreqDist
 from nltk.tokenize import sent_tokenize
-from nltk.stem import WordNetLemmatizer 
+from nltk.stem import WordNetLemmatizer
+import requests 
 lemmatizer = WordNetLemmatizer()
 #nltk.download('wordnet')
 #download pos
@@ -25,10 +26,17 @@ import re
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.decomposition import NMF, LatentDirichletAllocation, TruncatedSVD
 
+#Save and load the settings
+from django.conf import settings as conf_settings
+
 from rest_framework import status
 
 from django.conf import settings as conf_settings
 
+#Use pickle for saving
+import pickle
+import uuid
+import json
 
 #Get the text from the table file
 def get_table_text(table_file,column):
@@ -263,6 +271,34 @@ def train_table(request):
         tfidf_vectorizer, nmf, plot_image = train_nmf(df,num_topics)
         #Save the plot
         plot_image.savefig(model_name + '.png')
+    
+    #Now save the model
+    saved_model = {'file_name':filename,
+                    'selected_column':selected_column,
+                    'model_type':model_type,
+                    'normalisation':normalisation,
+                    'vectorizer':tfidf_vectorizer,
+                    'model':nmf}
+    saved_model_name = uuid.uuid4().hex[:6].upper() + '.sav'
+    pickle.dump(saved_model, open(saved_model_name, 'wb'))
+    #Now post this to the persistent Storage
+    #Get the URI of the Storage service
+    # See if the setting exists if not create it and leave it blank
+    if hasattr(conf_settings, 'PERSISTENT_STORAGE'):
+        persistent_storage = conf_settings.PERSISTENT_STORAGE
+    else:
+        response = {"Message" : "Persistent Storage URI has not been configured please configure"}
+        status_code = status.HTTP_424_FAILED_DEPENDENCY
+        return response, status_code
+    #Now do the post
+    payload={'file_name': filename,
+            'model_type': model_type,
+            'num_topics': num_topics,
+            'normalisation': normalisation,
+            'topic_labels':json.dumps({})}
+    files={'save_model':open(saved_model_name,'rb')}
+    headers = {}
+    response = requests.request("POST",persistent_storage + '/storage/',headers=headers,data=payload,files=files)
     return response, status_code
 
 #Next picle model and save to external storage

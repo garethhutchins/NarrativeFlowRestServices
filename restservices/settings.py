@@ -131,4 +131,4 @@ REST_FRAMEWORK = {
 }
 
 #Custom Application Settings
-PERSISTENT_STORAGE = "g"
+PERSISTENT_STORAGE = "http://127.0.0.1:8001"
