@@ -7,7 +7,7 @@
   "item": [
     {
       "name": "Train Topic Table",
-      "_postman_id": "876b97b8-c473-4625-8dbe-9d17ea09967e",
+      "id": "876b97b8-c473-4625-8dbe-9d17ea09967e",
       "protocolProfileBehavior": {
         "disableBodyPruning": true
       },
@@ -42,10 +42,7 @@
               "value": "1.5",
               "type": "text"
             }
-          ],
-          "options": {
-            "formdata": {}
-          }
+          ]
         },
         "url": "http://127.0.0.1:8000/train_topic_table/"
       },
