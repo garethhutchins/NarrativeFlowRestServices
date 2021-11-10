@@ -142,6 +142,35 @@
         "url": "http://127.0.0.1:8000/gettext/"
       },
       "response": []
+    },
+    {
+      "name": "Get Text From Tika",
+      "id": "910dd2f3-9551-45ee-af8c-1ebd562b2c58",
+      "protocolProfileBehavior": {
+        "disabledSystemHeaders": {},
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": "/C:/Users/ghutchin/Desktop/Thrive Once More Final Customer-Facing Version.pptx"
+            },
+            {
+              "key": "tika",
+              "value": "http://localhost:9998/tika",
+              "type": "text"
+            }
+          ]
+        },
+        "url": "http://127.0.0.1:8000/gettext/"
+      },
+      "response": []
     }
   ]
 }
