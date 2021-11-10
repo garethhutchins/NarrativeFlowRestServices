@@ -1,0 +1,55 @@
+{
+  "info": {
+    "_postman_id": "698a3643-c5fa-4e2f-8d00-053f23e6a1c4",
+    "name": "REST Services",
+    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Train Topic Table",
+      "_postman_id": "876b97b8-c473-4625-8dbe-9d17ea09967e",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": "/C:/Users/ghutchin/Documents/UOR/Project/Documents/BBC/learn-ai-bbc/BBC News Train.csv"
+            },
+            {
+              "key": "normalisation",
+              "value": "None",
+              "type": "text"
+            },
+            {
+              "key": "model_type",
+              "value": "NMF",
+              "type": "text"
+            },
+            {
+              "key": "selected_column",
+              "value": "",
+              "type": "text"
+            },
+            {
+              "key": "num_topics",
+              "value": "1.5",
+              "type": "text"
+            }
+          ],
+          "options": {
+            "formdata": {}
+          }
+        },
+        "url": "http://127.0.0.1:8000/train_topic_table/"
+      },
+      "response": []
+    }
+  ]
+}
