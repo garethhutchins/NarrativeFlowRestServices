@@ -58,7 +58,7 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "http://127.0.0.1:8000/stopwords?stop_word_list =nltk",
+          "raw": "http://127.0.0.1:8000/stopwords?stop_word_list=nltk",
           "protocol": "http",
           "host": [
             "127",
@@ -72,7 +72,7 @@
           ],
           "query": [
             {
-              "key": "stop_word_list ",
+              "key": "stop_word_list",
               "value": "nltk"
             }
           ]
