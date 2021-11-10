@@ -107,6 +107,41 @@
         "url": "http://127.0.0.1:8000/stopwords/"
       },
       "response": []
+    },
+    {
+      "name": "Get Text From csv",
+      "id": "df820385-2047-438c-9caf-bcf70983cb59",
+      "protocolProfileBehavior": {
+        "disabledSystemHeaders": {},
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": "/C:/Users/ghutchin/Documents/UOR/Project/Documents/BBC/learn-ai-bbc/BBC News Test.csv"
+            },
+            {
+              "key": "tika",
+              "value": "http://localhost:9998/tika",
+              "type": "text",
+              "disabled": true
+            },
+            {
+              "key": "selected_column",
+              "value": "Text",
+              "type": "text"
+            }
+          ]
+        },
+        "url": "http://127.0.0.1:8000/gettext/"
+      },
+      "response": []
     }
   ]
 }
