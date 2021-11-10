@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from rest_framework.fields import BooleanField
 from rest_framework.serializers import Serializer, FileField, CharField, IntegerField, ChoiceField, URLField
 
 class YourSerializer(serializers.Serializer):
@@ -8,14 +9,14 @@ class YourSerializer(serializers.Serializer):
 
 class GetTextSerializer(Serializer):
    file = FileField()
-   tika = CharField(allow_blank=True)
+   tika = BooleanField(default=True)
    selected_column = CharField(allow_blank=True)
    class Meta:
       fields = ['file','tika','selected_column']   
 
 class RemoveStopWordSerializer(Serializer):
    post_text = CharField(allow_blank=False)
-   stop_word_list = CharField(allow_blank=False) 
+   stop_word_list = ChoiceField(choices = ("nltk","nltk"))
    class Meta:
       fields = ['post_text','stop_word_list'] 
 
@@ -30,5 +31,6 @@ class TrainTopicTableSerializer(Serializer):
 
 class ServiceSettingsSerialiser(Serializer):
    persistent_storage = URLField()
+   tika = URLField()
    class Meta:
-      fields = ['persistent_storage']
+      fields = ['persistent_storage,tika']

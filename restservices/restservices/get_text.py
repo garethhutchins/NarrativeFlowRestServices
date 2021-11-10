@@ -4,6 +4,8 @@ import re
 import pandas as pd
 import json
 from django.core.files.storage import FileSystemStorage
+from django.conf import settings as conf_settings
+from rest_framework import status
 
 def get_text(request):
     #Get the variables from the request
@@ -20,8 +22,8 @@ def get_text(request):
         
         #Now see if we need to send it to Tika
         if 'tika' in request._data:
-            tika_url = request._data['tika']
-            if tika_url != '':
+            tika = request._data['tika']
+            if tika == 'true':
                 #open the file for reading
                 with open(full_file_path, 'rb') as f:
                     payload=f.read()
@@ -31,10 +33,18 @@ def get_text(request):
                     }
                 #Now delete the file
                 fs.delete(filename)
+                if hasattr(conf_settings, 'TIKA'):
+                    tika_url = conf_settings.TIKA
+                else:
+                    #Return an Error
+                    response = {'Message','TIKA Url not defined in settings'}
+                    status_code = status.HTTP_428_PRECONDITION_REQUIRED
+                    return response, status_code
                 tika_response = requests.request("PUT", tika_url, headers=headers, data=payload)
                 response = tika_response.text
                 if tika_response.status_code != 200:
                     response = tika_response.reason
+                    return response, tika_response.status_code
         #See if it's a table file
         if 'selected_column' in request._data:
             selected_column = request._data['selected_column']
@@ -45,9 +55,9 @@ def get_text(request):
                 fs.delete(filename)
                 #Now only keep the selected column
                 df = df[selected_column]
-                
                 json_records = df.to_json(orient='records')
                 data = []
                 data = json.loads(json_records)
                 response = data
-        return response
+                status_code = status.HTTP_200_OK
+        return response, status_code

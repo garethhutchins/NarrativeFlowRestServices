@@ -14,16 +14,8 @@ from .serializers import GetTextSerializer, RemoveStopWordSerializer, TrainTopic
 
 from .get_text import get_text
 from .stop_words import remove_stop_words, list_stop_words
-from .train_topic_table import list_options, train_table
+from .train_topic_table import list_train_table_options, train_table
 from .service_settings import list_settings, update_settings
-
-class YourView(views.APIView):
-
-    def get(self, request):
-        yourdata= [{"likes": 10, "comments": 0}, {"likes": 4, "comments": 23}]
-        results = YourSerializer(yourdata, many=True).data
-        return Response(results)
-
 
 #Get the Text Elements from Files
 class GetTextViewSet(ViewSet):
@@ -31,7 +23,12 @@ class GetTextViewSet(ViewSet):
     serializer_class = GetTextSerializer
 
     def list(self, request):
-        return Response("GET API")
+        options = {
+            'file' : 'file to post',
+            'tika' : 'Boolean if tika is required',
+            'selected_column':'The column if a csv file is used'
+        }
+        return Response(options)
 
     def create(self, request):
         response = get_text(request)
@@ -55,7 +52,7 @@ class TrainTopicTableViewSet(ViewSet):
     serializer_class = TrainTopicTableSerializer
     #List the Parameters
     def list(self,request):
-        response= list_options(request)
+        response= list_train_table_options(request)
         return Response(response, status=status.HTTP_200_OK)
     #Do a post of content
     def create(self, request):

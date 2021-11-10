@@ -19,8 +19,15 @@ def list_settings(request):
     else:
         conf_settings.PERSISTENT_STORAGE = ""
         persistent_storage = conf_settings.PERSISTENT_STORAGE
+    #TIKA
+    if hasattr(conf_settings, 'TIKA'):
+        tika = conf_settings.TIKA
+    else:
+        conf_settings.TIKA = ""
+        tika = conf_settings.TIKA
     options = {
-        "persistent_storage" : persistent_storage
+        "persistent_storage" : persistent_storage,
+        "tika" : tika
     }
     status_code = status.HTTP_200_OK
     return options, status_code

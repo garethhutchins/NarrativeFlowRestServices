@@ -10,7 +10,7 @@ from nltk.tokenize import word_tokenize
 def list_stop_words(request):
     stop_word_list = request.GET.get('stop_word_list','')
     if stop_word_list == '':
-        stops = ['nltk']
+        stops = set(stopwords.words('english'))
     if stop_word_list == 'nltk':
         stops = set(stopwords.words('english'))
     return stops

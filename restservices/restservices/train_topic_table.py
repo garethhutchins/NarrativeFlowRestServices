@@ -162,7 +162,7 @@ def train_nmf(df,num_topics):
     #Now return the vectorizer, the tfidf and the plot
     return tfidf_vectorizer, nmf, plot_image
 #A basic function to list the inputs
-def list_options(request):
+def list_train_table_options(request):
     options = {
         "file" : "Input File",
         "selected_column" : "The Column that Contains the Text",
