@@ -47,6 +47,130 @@
         "url": "http://127.0.0.1:8000/train_topic_table/"
       },
       "response": []
+    },
+    {
+      "name": "stop words get list",
+      "id": "7d826f7c-265d-4c3c-bfd4-75b8b6b359da",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:8000/stopwords?stop_word_list=nltk",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "stopwords"
+          ],
+          "query": [
+            {
+              "key": "stop_word_list",
+              "value": "nltk"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "StopWords",
+      "id": "7fcb0c7e-bf1b-4f7d-b2c5-173e573562d0",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "post_text",
+              "value": "qpr keeper day heads for preston queens park rangers keeper chris day is set to join preston on a month s loan.  day has been displaced by the arrival of simon royce  who is in his second month on loan from charlton. qpr have also signed italian generoso rossi. r s manager ian holloway said:  some might say it s a risk as he can t be recalled during that month and simon royce can now be recalled by charlton.  but i have other irons in the fire. i have had a  yes  from a couple of others should i need them.   day s rangers contract expires in the summer. meanwhile  holloway is hoping to complete the signing of middlesbrough defender andy davies - either permanently or again on loan - before saturday s match at ipswich. davies impressed during a recent loan spell at loftus road. holloway is also chasing bristol city midfielder tom doherty.",
+              "type": "text"
+            },
+            {
+              "key": "stop_word_list",
+              "value": "nltk",
+              "type": "text"
+            }
+          ]
+        },
+        "url": "http://127.0.0.1:8000/stopwords/"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Text From csv",
+      "id": "df820385-2047-438c-9caf-bcf70983cb59",
+      "protocolProfileBehavior": {
+        "disabledSystemHeaders": {},
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": "/C:/Users/ghutchin/Documents/UOR/Project/Documents/BBC/learn-ai-bbc/BBC News Test.csv"
+            },
+            {
+              "key": "tika",
+              "value": "http://localhost:9998/tika",
+              "type": "text",
+              "disabled": true
+            },
+            {
+              "key": "selected_column",
+              "value": "Text",
+              "type": "text"
+            }
+          ]
+        },
+        "url": "http://127.0.0.1:8000/gettext/"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Text From Tika",
+      "id": "910dd2f3-9551-45ee-af8c-1ebd562b2c58",
+      "protocolProfileBehavior": {
+        "disabledSystemHeaders": {},
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": "/C:/Users/ghutchin/Desktop/Thrive Once More Final Customer-Facing Version.pptx"
+            },
+            {
+              "key": "tika",
+              "value": "http://localhost:9998/tika",
+              "type": "text"
+            }
+          ]
+        },
+        "url": "http://127.0.0.1:8000/gettext/"
+      },
+      "response": []
     }
   ]
 }
