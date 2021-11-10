@@ -296,9 +296,10 @@ def train_table(request):
             'num_topics': num_topics,
             'normalisation': normalisation,
             'topic_labels':json.dumps({})}
-    files={'save_model':open(saved_model_name,'rb')}
+    files={'save_model':open(saved_model_name,'rb'),'topics_image':open(model_name + '.png','rb')}
     headers = {}
-    response = requests.request("POST",persistent_storage + '/storage/',headers=headers,data=payload,files=files)
+    save_response = requests.request("POST",persistent_storage + '/storage/',headers=headers,data=payload,files=files)
+
     return response, status_code
 
 #Next picle model and save to external storage
