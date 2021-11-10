@@ -47,6 +47,38 @@
         "url": "http://127.0.0.1:8000/train_topic_table/"
       },
       "response": []
+    },
+    {
+      "name": "stop words get list",
+      "id": "7d826f7c-265d-4c3c-bfd4-75b8b6b359da",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:8000/stopwords?stop_word_list=nltk",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "stopwords"
+          ],
+          "query": [
+            {
+              "key": "stop_word_list",
+              "value": "nltk"
+            }
+          ]
+        }
+      },
+      "response": []
     }
   ]
 }
