@@ -173,7 +173,7 @@
       "response": []
     },
     {
-      "name": "New Request",
+      "name": "Get Model",
       "id": "a7995c90-85fb-4357-9f33-52739bdf31d9",
       "protocolProfileBehavior": {
         "disableBodyPruning": true
