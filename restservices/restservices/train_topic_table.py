@@ -106,7 +106,7 @@ def remove_stop_stem(text):
 #Now create a function to lemmatise and tokenize the text
 def remove_stop_lem(text):
     stop_words = set(stopwords.words('english'))
-    #words = text.split()
+    
     words = word_tokenize(text)
     keepWords = []
     for r in words:
@@ -220,7 +220,6 @@ def train_table(request):
         num_topics = request._full_data['num_topics']
         #See if it's an integer
         if str.isdigit(num_topics):
-            num_topics = num_topics
             num_topics = int(num_topics)
         else:
             if num_topics == '':
@@ -302,5 +301,5 @@ def train_table(request):
 
     return response, status_code
 
-#Next picle model and save to external storage
+#Next pickle model and save to external storage
     

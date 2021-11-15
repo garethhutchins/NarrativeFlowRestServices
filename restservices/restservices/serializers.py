@@ -1,6 +1,7 @@
 from rest_framework import serializers
+from rest_framework import fields
 from rest_framework.fields import BooleanField
-from rest_framework.serializers import Serializer, FileField, CharField, IntegerField, ChoiceField, URLField
+from rest_framework.serializers import Serializer, FileField, CharField, IntegerField, ChoiceField, URLField, JSONField
 
 class YourSerializer(serializers.Serializer):
    """Your data serializer, define your fields here."""
@@ -28,6 +29,11 @@ class TrainTopicTableSerializer(Serializer):
    normalisation = ChoiceField(choices = (("None","None"),("Stemming","Stemming"),("Lemmatisation","Lemmatisation")))
    class Meta:
       fields = ['file','selected_column','model_type','num_topics','normalisation']
+
+class ModelSerializer(Serializer):
+   topic_labels = JSONField()
+   class Meta:
+      fields = ['topic_labels']
 
 class ServiceSettingsSerialiser(Serializer):
    persistent_storage = URLField()

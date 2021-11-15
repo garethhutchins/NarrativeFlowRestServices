@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from rest_framework import views
+from rest_framework import response
 from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
 
@@ -9,13 +10,14 @@ from rest_framework.decorators import parser_classes
 from rest_framework.parsers import FileUploadParser
 from rest_framework import status
 
-from .serializers import GetTextSerializer, RemoveStopWordSerializer, TrainTopicTableSerializer, ServiceSettingsSerialiser
+from .serializers import GetTextSerializer, RemoveStopWordSerializer, TrainTopicTableSerializer, ServiceSettingsSerialiser, ModelSerializer
 
 
 from .get_text import get_text
 from .stop_words import remove_stop_words, list_stop_words
 from .train_topic_table import list_train_table_options, train_table
 from .service_settings import list_settings, update_settings
+from .update_model import list_models, update_labels, get_model
 
 #Get the Text Elements from Files
 class GetTextViewSet(ViewSet):
@@ -58,6 +60,26 @@ class TrainTopicTableViewSet(ViewSet):
     def create(self, request):
         response, status_code = train_table(request)
         return Response(response, status = status_code)
+
+#Manage Models
+class ListModelsViewSet(ViewSet):
+    
+    def list(self,request):
+        response = list_models()
+        
+        return Response(response, status=status.HTTP_200_OK)   
+                
+
+class GetModelViewSet(ViewSet):
+    serializer_class = ModelSerializer
+    def list(self,request):
+        response = get_model(request)
+        
+        return Response(response, status=status.HTTP_200_OK)  
+    #Update the labels
+    def put(self,request):
+        response, status_code = update_labels(request)
+        return Response(response, status_code)
 
 #Settings
 class ServiceSettingsViewSet(ViewSet):
