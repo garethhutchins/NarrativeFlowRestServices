@@ -171,6 +171,19 @@
         "url": "http://127.0.0.1:8000/gettext/"
       },
       "response": []
+    },
+    {
+      "name": "New Request",
+      "id": "a7995c90-85fb-4357-9f33-52739bdf31d9",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": null
+      },
+      "response": []
     }
   ]
 }
