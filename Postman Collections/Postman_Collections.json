@@ -184,6 +184,19 @@
         "url": null
       },
       "response": []
+    },
+    {
+      "name": "Update Labels",
+      "id": "cfbbabda-d6f8-4eea-9044-243b97e52b29",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "http://127.0.0.1:8000/models/f75cd25f-b37b-4c7c-a80d-e9db7b7de10d/"
+      },
+      "response": []
     }
   ]
 }
