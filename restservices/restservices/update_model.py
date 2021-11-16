@@ -1,9 +1,14 @@
 #This will update the topic labels of a model
+import pickle
 from rest_framework import response
 from django.conf import settings as conf_settings
 from rest_framework import status
 import requests
 import json
+import urllib.request
+import os
+
+from .common_processing import plot_top_words
 
 def list_models():
     # See if the setting exists if not create it and leave it blank
@@ -58,9 +63,30 @@ def update_labels(request):
         except Exception as e:
             response = {"Message":"Invalid Json Format {}".format(e)}
             return response, status.HTTP_400_BAD_REQUEST
-        #Now sent the update to the storage Service
+        
+        #Get the files from the storage service
+        saved_model = pickle.load(urllib.request.urlopen(models_json['save_model']))
+        #saved_model = requests.get(models_json['save_model'])
+        #p_saved_model = pickle.load(saved_model.content,encoding='bytes')
+        #Now send the update to the storage Service
         models_json['topic_labels'] = topic_labels
+        tfidf_feature_names=saved_model['vectorizer'].get_feature_names()
+        plot_image = plot_top_words(saved_model['model'], tfidf_feature_names, models_json['num_topics'], 'Topics in NMF model',models_json['num_topics'],json_topics)
+        #Save the plot
+        plot_image.savefig(models_json['name'] + '.png')
+        #Save the model again so it can be updated
+        save_file = open(models_json['name']+'.sav', 'wb')
+        pickle.dump(saved_model,save_file)
+        save_file.close()
         headers = {}
+        save_model = open(models_json['name']+'.sav','rb')
+        save_image = open(models_json['name'] + '.png','rb')
+        files={'save_model':save_model,'topics_image':save_image}
         #Need to get the model file down and then submit the model with updated image
-        update_response = requests.request("PUT",persistent_storage + '/storage/' + id,headers=headers,data=models_json)#,files=files) 
-    return response
+        update_response = requests.request("PUT",persistent_storage + '/storage/' + id,headers=headers,data=models_json,files=files) 
+        #Delete the temp files too
+        save_model.close()
+        save_image.close()
+        os.remove(models_json['name'] + '.png')
+        os.remove(models_json['name'] + '.sav')
+    return json.loads(update_response.text), update_response.status_code
