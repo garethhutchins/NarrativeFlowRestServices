@@ -34,12 +34,12 @@
             },
             {
               "key": "selected_column",
-              "value": "",
+              "value": "Text",
               "type": "text"
             },
             {
               "key": "num_topics",
-              "value": "1.5",
+              "value": "10",
               "type": "text"
             }
           ]
