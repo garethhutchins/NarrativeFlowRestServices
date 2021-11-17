@@ -199,7 +199,7 @@
       "response": []
     },
     {
-      "name": "New Request",
+      "name": "Get Process Text",
       "id": "9ae03827-48f5-4cff-a7f3-586a8d919939",
       "protocolProfileBehavior": {
         "disableBodyPruning": true
