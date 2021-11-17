@@ -196,7 +196,71 @@
         "header": [],
         "url": "http://127.0.0.1:8000/models/f75cd25f-b37b-4c7c-a80d-e9db7b7de10d/"
       },
-      "response": []
+      "response": [
+        {
+          "id": "d35d74e9-38b9-4047-add7-70ae47a35107",
+          "name": "Update Labels",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "topic_labels",
+                  "value": "{\"1\": \"Rugby\",\"2\":\"Politics\",\"3\":\"Mobile Phones\",\"4\":\"Film\",\"5\":\"Economy\",\"6\":\"Russia\",\n\"7\":\"Technology\",\"8\":\"Music\",\"9\":\"Football\",\"10\":\"Olympics\"}",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": "http://127.0.0.1:8000/models/b7eecad8-c6dc-4f4b-93ed-49103acdf364/"
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Date",
+              "value": "Wed, 17 Nov 2021 18:25:35 GMT"
+            },
+            {
+              "key": "Server",
+              "value": "WSGIServer/0.2 CPython/3.9.5"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Vary",
+              "value": "Accept, Cookie"
+            },
+            {
+              "key": "Allow",
+              "value": "GET, PUT, HEAD, OPTIONS"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Length",
+              "value": "503"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "Referrer-Policy",
+              "value": "same-origin"
+            }
+          ],
+          "cookie": [],
+          "responseTime": null,
+          "body": "{\n    \"name\": \"b7eecad8-c6dc-4f4b-93ed-49103acdf364\",\n    \"file_name\": \"BBC News Train_0fHiDce.csv\",\n    \"model_type\": \"NMF\",\n    \"num_topics\": 10,\n    \"normalisation\": \"Lemmatisation\",\n    \"topic_labels\": {\n        \"1\": \"Rugby\",\n        \"2\": \"Politics\",\n        \"3\": \"Mobile Phones\",\n        \"4\": \"Film\",\n        \"5\": \"Economy\",\n        \"6\": \"Russia\",\n        \"7\": \"Technology\",\n        \"8\": \"Music\",\n        \"9\": \"Football\",\n        \"10\": \"Olympics\"\n    },\n    \"save_model\": \"http://127.0.0.1:8001/models/models/b7eecad8-c6dc-4f4b-93ed-49103acdf364.sav\",\n    \"topics_image\": \"http://127.0.0.1:8001/models/models/b7eecad8-c6dc-4f4b-93ed-49103acdf364.png\"\n}"
+        }
+      ]
     },
     {
       "name": "Get Process Text",
