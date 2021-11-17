@@ -273,7 +273,61 @@
         "header": [],
         "url": "http://127.0.0.1:8000/process_text/"
       },
-      "response": []
+      "response": [
+        {
+          "id": "daf23609-4ab9-4b74-afcb-4aafcf42ca9c",
+          "name": "Get Process Text",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": "http://127.0.0.1:8000/process_text/"
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Date",
+              "value": "Wed, 17 Nov 2021 18:27:39 GMT"
+            },
+            {
+              "key": "Server",
+              "value": "WSGIServer/0.2 CPython/3.9.5"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Vary",
+              "value": "Accept, Cookie"
+            },
+            {
+              "key": "Allow",
+              "value": "GET, POST, HEAD, OPTIONS"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Length",
+              "value": "273"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "Referrer-Policy",
+              "value": "same-origin"
+            }
+          ],
+          "cookie": [],
+          "responseTime": null,
+          "body": "{\n    \"text\": \"The raw text to be processed\",\n    \"window_size\": \"The Size of the sliding window to analyse the text\",\n    \"window_slide\": \"The size of the increase between itterations of the text classification\",\n    \"model_id\": \"The model id / name used to classify the text in the window size\"\n}"
+        }
+      ]
     },
     {
       "name": "Post Process Text",
