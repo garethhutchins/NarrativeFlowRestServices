@@ -22,7 +22,7 @@ import uuid
 import json
 
 #Use the commong functions
-from .common_processing import plot_top_words, remove_stop_lem, train_nmf, remove_stop_stem
+from .common_processing import remove_stop_lem, train_nmf, remove_stop_stem
 
 #Get the text from the table file
 def get_table_text(table_file,column):
@@ -221,5 +221,5 @@ def train_table(request):
     os.remove(model_name + '.png')
     return json.loads(save_response.text), status_code
 
-#Next pickle model and save to external storage
+
     

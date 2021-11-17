@@ -40,3 +40,11 @@ class ServiceSettingsSerialiser(Serializer):
    tika = URLField()
    class Meta:
       fields = ['persistent_storage,tika']
+
+class ProcessTextSerializer(Serializer):
+   text = CharField(allow_blank=False)
+   window_size = IntegerField()
+   window_slide = IntegerField()
+   model_id = CharField()
+   class Meta:
+      fields = ['text','window_size','window_slide','model_id']

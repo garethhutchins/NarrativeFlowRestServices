@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import include, path, re_path
 from restservices.restservices import views
 from rest_framework import routers
-from restservices.restservices.views import GetTextViewSet, StopWordsViewSet, TrainTopicTableViewSet, ServiceSettingsViewSet, ListModelsViewSet, GetModelViewSet
+from restservices.restservices.views import GetTextViewSet, StopWordsViewSet, TrainTopicTableViewSet, ServiceSettingsViewSet, ListModelsViewSet, GetModelViewSet, ProcessTextViewSet
 from django.conf.urls import url
 
 router = routers.DefaultRouter()
@@ -27,6 +27,7 @@ router.register(r'train_topic_table',TrainTopicTableViewSet, basename='train_top
 router.register(r'service_settings',ServiceSettingsViewSet, basename='service_settings')
 router.register(r'models',ListModelsViewSet, basename='list_models')
 router.register(r"models/[a-z0-9\-]{36}",GetModelViewSet, basename='get_model')
+router.register(r'process_text',ProcessTextViewSet, basename='process_text')
 urlpatterns = [
     #path('', views.YourView.as_view()),
     path('',include(router.urls)),

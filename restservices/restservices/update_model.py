@@ -10,6 +10,7 @@ import os
 
 from .common_processing import plot_top_words
 
+
 def list_models():
     # See if the setting exists if not create it and leave it blank
     if hasattr(conf_settings, 'PERSISTENT_STORAGE'):

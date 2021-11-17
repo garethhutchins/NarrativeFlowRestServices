@@ -10,7 +10,7 @@ from rest_framework.decorators import parser_classes
 from rest_framework.parsers import FileUploadParser
 from rest_framework import status
 
-from .serializers import GetTextSerializer, RemoveStopWordSerializer, TrainTopicTableSerializer, ServiceSettingsSerialiser, ModelSerializer
+from .serializers import GetTextSerializer, RemoveStopWordSerializer, TrainTopicTableSerializer, ServiceSettingsSerialiser, ModelSerializer, ProcessTextSerializer
 
 
 from .get_text import get_text
@@ -18,6 +18,7 @@ from .stop_words import remove_stop_words, list_stop_words
 from .train_topic_table import list_train_table_options, train_table
 from .service_settings import list_settings, update_settings
 from .update_model import list_models, update_labels, get_model
+from .process_text import list_train_table_options, predict_text
 
 #Get the Text Elements from Files
 class GetTextViewSet(ViewSet):
@@ -92,3 +93,15 @@ class ServiceSettingsViewSet(ViewSet):
     def put(self,request):
         response, status_code = update_settings(request)
         return Response(response, status_code)
+
+#Process Document
+class ProcessTextViewSet(ViewSet):
+    serializer_class = ProcessTextSerializer
+    #List the Settings
+    def list(self,request):
+        response, status_code = list_train_table_options(request)
+        return Response(response,status_code)
+    def create(self,request):
+        response, status_code = predict_text(request)
+        return Response(response,status_code)
+        
