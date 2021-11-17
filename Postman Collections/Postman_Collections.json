@@ -197,6 +197,19 @@
         "url": "http://127.0.0.1:8000/models/f75cd25f-b37b-4c7c-a80d-e9db7b7de10d/"
       },
       "response": []
+    },
+    {
+      "name": "New Request",
+      "id": "9ae03827-48f5-4cff-a7f3-586a8d919939",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": null
+      },
+      "response": []
     }
   ]
 }
