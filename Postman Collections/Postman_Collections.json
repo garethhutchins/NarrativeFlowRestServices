@@ -210,6 +210,19 @@
         "url": "http://127.0.0.1:8000/process_text/"
       },
       "response": []
+    },
+    {
+      "name": "New Request",
+      "id": "db86cf29-2532-4d66-9387-002dc16ad3ef",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": null
+      },
+      "response": []
     }
   ]
 }
