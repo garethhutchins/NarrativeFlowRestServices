@@ -46,7 +46,91 @@
         },
         "url": "http://127.0.0.1:8000/train_topic_table/"
       },
-      "response": []
+      "response": [
+        {
+          "id": "9e986fea-5d47-4d23-8776-4024e463097b",
+          "name": "Train Topic Table",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": "/C:/Users/ghutchin/Documents/UOR/Project/Documents/BBC/learn-ai-bbc/BBC News Train.csv"
+                },
+                {
+                  "key": "normalisation",
+                  "value": "Lemmatisation",
+                  "type": "text"
+                },
+                {
+                  "key": "model_type",
+                  "value": "NMF",
+                  "type": "text"
+                },
+                {
+                  "key": "selected_column",
+                  "value": "Text",
+                  "type": "text"
+                },
+                {
+                  "key": "num_topics",
+                  "value": "10",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": "http://127.0.0.1:8000/train_topic_table/"
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Date",
+              "value": "Wed, 17 Nov 2021 18:24:16 GMT"
+            },
+            {
+              "key": "Server",
+              "value": "WSGIServer/0.2 CPython/3.9.5"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Vary",
+              "value": "Accept, Cookie"
+            },
+            {
+              "key": "Allow",
+              "value": "GET, POST, HEAD, OPTIONS"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Length",
+              "value": "345"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "Referrer-Policy",
+              "value": "same-origin"
+            }
+          ],
+          "cookie": [],
+          "responseTime": null,
+          "body": "{\n    \"name\": \"b7eecad8-c6dc-4f4b-93ed-49103acdf364\",\n    \"file_name\": \"BBC News Train_0fHiDce.csv\",\n    \"model_type\": \"NMF\",\n    \"num_topics\": 10,\n    \"normalisation\": \"Lemmatisation\",\n    \"topic_labels\": {},\n    \"save_model\": \"http://127.0.0.1:8001/models/models/320D21.sav\",\n    \"topics_image\": \"http://127.0.0.1:8001/models/models/BBC_News_Train_0fHiDce.csv_Text_NMF_10_Lemmatisation.png\"\n}"
+        }
+      ]
     },
     {
       "name": "stop words get list",
