@@ -207,7 +207,7 @@
       "request": {
         "method": "GET",
         "header": [],
-        "url": null
+        "url": "http://127.0.0.1:8000/process_text/"
       },
       "response": []
     }
