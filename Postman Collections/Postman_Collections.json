@@ -276,8 +276,18 @@
         "disableBodyPruning": true
       },
       "request": {
-        "method": "GET",
+        "method": "PUT",
         "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "topic_labels",
+              "value": "{\"1\": \"Rugby\",\"2\":\"Politics\",\"3\":\"Mobile Phones\",\"4\":\"Film\",\"5\":\"Economy\",\"6\":\"Russia\",\n\"7\":\"Technology\",\"8\":\"Music\",\"9\":\"Football\",\"10\":\"Olympics\"}",
+              "type": "text"
+            }
+          ]
+        },
         "url": "http://127.0.0.1:8000/models/f75cd25f-b37b-4c7c-a80d-e9db7b7de10d/"
       },
       "response": [
