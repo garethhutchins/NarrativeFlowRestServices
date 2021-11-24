@@ -24,7 +24,7 @@
             },
             {
               "key": "normalisation",
-              "value": "None",
+              "value": "Lemmatisation",
               "type": "text"
             },
             {
