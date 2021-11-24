@@ -29,6 +29,18 @@ Get's a list of trained models - example response<br />
         }<br />
 ]
 
+## Analysing Text
+Analyses the text against a specified model
+### POST
+http://server/process_text/<br />
+{<br />
+    "text":"The text to post and analyse",<br />
+    "model_id":"The model ID to use for the prediction",<br />
+    "window_size":"The size of the window, number of words, or chunk of text to process at a time",<br />
+    "window_slide":"The number of words to move along before analysing again"<br />
+
+}
+
 ## Getting text from documents
 This service gets the text from text searchable documents or CSV files.<br />
 http:/server/gettext/

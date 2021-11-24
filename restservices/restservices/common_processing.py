@@ -22,6 +22,7 @@ import re
 #Scikit for learning mechanisms
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.decomposition import NMF, LatentDirichletAllocation, TruncatedSVD
+from sklearn.model_selection import GridSearchCV
 
 #A function to perform porter stemming
 def remove_stop_stem(text):
@@ -96,3 +97,39 @@ def train_nmf(df,num_topics):
                'Topics in NMF model',num_topics,{})
     #Now return the vectorizer, the tfidf and the plot
     return tfidf_vectorizer, nmf, plot_image
+#Predict the number of LDA topics
+def predict_lda_topics(df):
+    search_params = {'n_components': [5,6,7,8,9,10,11,12]}
+
+    # Init the Model
+    lda = LatentDirichletAllocation()
+
+    # Init Grid Search Class
+    model = GridSearchCV(lda, param_grid=search_params)
+    tf_vectorizer = CountVectorizer(max_df=0.95, min_df=2,
+                                max_features=1000,
+                                stop_words='english')
+    tf = tf_vectorizer.fit_transform(df)
+    # Do the Grid Search
+    model.fit(tf)
+    # Best Model
+    best_lda_model = model.best_estimator_
+    
+    num_topics = best_lda_model.n_components
+    return int(num_topics)
+
+#Train the LDA Model
+def train_lda(df,num_topics):
+    #Create a tf vectorizer
+    tf_vectorizer = CountVectorizer(max_df=0.95, min_df=2,
+                                max_features=1000,
+                                stop_words='english')
+    tf = tf_vectorizer.fit_transform(df)
+    lda = LatentDirichletAllocation(n_components=num_topics, max_iter=5,
+                                learning_method='online',
+                                learning_offset=50.,
+                                random_state=0)
+    lda.fit(tf)
+    n_top_words = 10
+    plot_image = plot_top_words(lda, tf_vectorizer.get_feature_names(), n_top_words, 'Topics in LDA model',num_topics,{}) 
+    return tf, lda, plot_image

@@ -22,7 +22,7 @@ import uuid
 import json
 
 #Use the commong functions
-from .common_processing import remove_stop_lem, train_nmf, remove_stop_stem
+from .common_processing import remove_stop_lem, train_nmf, remove_stop_stem, train_lda, predict_lda_topics
 
 #Get the text from the table file
 def get_table_text(table_file,column):
@@ -182,16 +182,30 @@ def train_table(request):
             status_code = status.HTTP_400_BAD_REQUEST
         #Now train the NMF
         tfidf_vectorizer, nmf, plot_image = train_nmf(df,num_topics)
+        model = nmf
+        vectorizer = tfidf_vectorizer
         #Save the plot
         plot_image.savefig(model_name + '.png')
-    
+    #Now see if the model is LDA
+    if model_type == 'LDA':
+        #See if the number of topics has been provided
+        if num_topics <1:
+            #If this is the case then we'll try and predict the number of topics
+            num_topics = predict_lda_topics(df)
+        
+        #Train the LDA
+        tf_vectorizer, lda, plot_image = train_lda(df,num_topics)
+        model = lda
+        vectorizer = tf_vectorizer
+        #Save the plot
+        plot_image.savefig(model_name + '.png')
     #Now save the model
     saved_model = {'file_name':filename,
                     'selected_column':selected_column,
                     'model_type':model_type,
                     'normalisation':normalisation,
-                    'vectorizer':tfidf_vectorizer,
-                    'model':nmf}
+                    'vectorizer':vectorizer,
+                    'model':model}
     saved_model_name = uuid.uuid4().hex[:6].upper() + '.sav'
     pickle.dump(saved_model, open(saved_model_name, 'wb'))
     #Now post this to the persistent Storage
@@ -215,10 +229,12 @@ def train_table(request):
     files={'save_model':saved_model,'topics_image':model_image}
     headers = {}
     save_response = requests.request("POST",persistent_storage + '/storage/',headers=headers,data=payload,files=files)
+    #Now Delete the Files
     saved_model.close()
     model_image.close()
     os.remove(saved_model_name)
     os.remove(model_name + '.png')
+    os.remove(filename)
     return json.loads(save_response.text), status_code
 
 
