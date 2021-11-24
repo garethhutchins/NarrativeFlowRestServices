@@ -288,7 +288,7 @@
             }
           ]
         },
-        "url": "http://127.0.0.1:8000/models/f75cd25f-b37b-4c7c-a80d-e9db7b7de10d/"
+        "url": "http://127.0.0.1:8000/models/e66f845c-9a52-4cdd-9f8f-4a133544c9ea/"
       },
       "response": [
         {
@@ -307,7 +307,7 @@
                 }
               ]
             },
-            "url": "http://127.0.0.1:8000/models/b7eecad8-c6dc-4f4b-93ed-49103acdf364/"
+            "url": "http://127.0.0.1:8000/models/0665b2e5-7f18-409c-aac4-402ec8022255/"
           },
           "status": "OK",
           "code": 200,
