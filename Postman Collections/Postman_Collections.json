@@ -581,7 +581,91 @@
         },
         "url": "http://127.0.0.1:8000/train_topic_table/"
       },
-      "response": []
+      "response": [
+        {
+          "id": "2cad28fb-eb2f-41c5-8a85-4154846f30fb",
+          "name": "Train Topic Table - LDA 10",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": "/C:/Users/ghutchin/Documents/UOR/Project/Documents/BBC/learn-ai-bbc/BBC News Train.csv"
+                },
+                {
+                  "key": "normalisation",
+                  "value": "Lemmatisation",
+                  "type": "text"
+                },
+                {
+                  "key": "model_type",
+                  "value": "LDA",
+                  "type": "text"
+                },
+                {
+                  "key": "selected_column",
+                  "value": "Text",
+                  "type": "text"
+                },
+                {
+                  "key": "num_topics",
+                  "value": "",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": "http://127.0.0.1:8000/train_topic_table/"
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Date",
+              "value": "Wed, 24 Nov 2021 22:32:32 GMT"
+            },
+            {
+              "key": "Server",
+              "value": "WSGIServer/0.2 CPython/3.9.5"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Vary",
+              "value": "Accept, Cookie"
+            },
+            {
+              "key": "Allow",
+              "value": "GET, POST, HEAD, OPTIONS"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Length",
+              "value": "343"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "Referrer-Policy",
+              "value": "same-origin"
+            }
+          ],
+          "cookie": [],
+          "responseTime": null,
+          "body": "{\n    \"name\": \"bd8c3a33-a7e7-480d-b7ee-7194e703fe34\",\n    \"file_name\": \"BBC News Train_c5NZ1pf.csv\",\n    \"model_type\": \"LDA\",\n    \"num_topics\": 6,\n    \"normalisation\": \"Lemmatisation\",\n    \"topic_labels\": {},\n    \"save_model\": \"http://127.0.0.1:8001/models/models/F6C2BE.sav\",\n    \"topics_image\": \"http://127.0.0.1:8001/models/models/BBC_News_Train_c5NZ1pf.csv_Text_LDA_0_Lemmatisation.png\"\n}"
+        }
+      ]
     }
   ]
 }
