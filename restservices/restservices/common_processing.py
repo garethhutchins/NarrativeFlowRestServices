@@ -4,6 +4,7 @@ import math
 import nltk
 #nltk.download('stopwords')
 
+
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 #nltk.download('punkt')
@@ -23,6 +24,9 @@ import re
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.decomposition import NMF, LatentDirichletAllocation, TruncatedSVD
 from sklearn.model_selection import GridSearchCV
+
+from sklearn.svm import SVC
+from sklearn.model_selection import train_test_split
 
 #A function to perform porter stemming
 def remove_stop_stem(text):
@@ -133,3 +137,19 @@ def train_lda(df,num_topics):
     n_top_words = 10
     plot_image = plot_top_words(lda, tf_vectorizer.get_feature_names(), n_top_words, 'Topics in LDA model',num_topics,{}) 
     return tf_vectorizer, lda, plot_image
+
+#Train TF-IDF models
+def train_tfidf(text,labels):
+    # Create the TF-IDF vectoriser and transform the corpus
+    vectorizer = TfidfVectorizer(min_df=1)
+    X = vectorizer.fit_transform(text)
+    # Create the training-test split of the data
+    X_train, X_test, y_train, y_test = train_test_split(
+            X, labels, test_size=0.3, random_state=42
+        )
+    svm = SVC(C=1000000.0, gamma='auto', kernel='rbf')
+    svm.fit(X_train, y_train)
+    score = svm.score(X_test,y_test)
+    return vectorizer, svm, score
+
+

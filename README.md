@@ -12,7 +12,8 @@ Create a new model from a CSV file
     'normalisation' : 'None|Stemming|Lemmatisation',<br />
     'model_type' : 'LDA|NMF|TF-IDF',<br />
     'selected_column' : 'Mandatory is more than one column, can be name or index of column',<br />
-    'num_topics' : 'The number of topics that is expected. Mandatory for NMF models'<br />
+    'num_topics' : 'The number of topics that is expected. Mandatory for NMF models',<br />
+    'label_column' : 'The Labels for TF-IDF Training'<br /> 
 }
 
 ### GET

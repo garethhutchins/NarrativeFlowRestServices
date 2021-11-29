@@ -28,7 +28,7 @@ class TrainTopicTableSerializer(Serializer):
    num_topics = IntegerField()
    normalisation = ChoiceField(choices = (("None","None"),("Stemming","Stemming"),("Lemmatisation","Lemmatisation")))
    class Meta:
-      fields = ['file','selected_column','model_type','num_topics','normalisation']
+      fields = ['file','selected_column','model_type','num_topics','normalisation','label_column']
 
 class ModelSerializer(Serializer):
    topic_labels = JSONField()

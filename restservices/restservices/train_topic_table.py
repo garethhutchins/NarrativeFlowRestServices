@@ -22,7 +22,8 @@ import uuid
 import json
 
 #Use the commong functions
-from .common_processing import remove_stop_lem, train_nmf, remove_stop_stem, train_lda, predict_lda_topics
+from .common_processing import remove_stop_lem, train_nmf, remove_stop_stem, train_lda, predict_lda_topics, train_tfidf
+
 
 #Get the text from the table file
 def get_table_text(table_file,column):
@@ -81,7 +82,8 @@ def list_train_table_options(request):
         "selected_column" : "The Column that Contains the Text",
         "model_type" : "LDA or NMF",
         "num_topics" : "Number of Topics - madatory for NMF",
-        "normalisation" : "Stemming, Lemmatisation or None"
+        "normalisation" : "Stemming, Lemmatisation or None",
+        "label_column" : "The Labels for TF-IDF Training" 
     }
     return options
 
@@ -112,13 +114,13 @@ def train_table(request):
     #Now check that the column can be extracted from the table
     
     #Check for the Model Type
-    model_key_error = "model_type key error: LDA or NMF Model Selection Required"
+    model_key_error = "model_type key error: LDA, NMF or TF-IDF Model Selection Required"
     if 'model_type' not in request._full_data:
         response = {"Message":model_key_error}
         status_code = status.HTTP_400_BAD_REQUEST
         return response, status_code
     model_type = request._full_data['model_type']
-    if model_type != 'LDA' and model_type != 'NMF':
+    if model_type != 'LDA' and model_type != 'NMF' and model_type != 'TF-IDF':
         response = {"Message":model_key_error}
         status_code = status.HTTP_400_BAD_REQUEST
         return response, status_code
@@ -130,6 +132,7 @@ def train_table(request):
         status_code = status.HTTP_400_BAD_REQUEST
         return response, status_code
     #See if the number of topics is in the request
+    num_topics = 0
     if 'num_topics' in request._full_data:
         num_topics = request._full_data['num_topics']
         #See if it's an integer
@@ -155,6 +158,7 @@ def train_table(request):
         normalisation = "None"
     #If we get this far then things are OK
     #Now create a model name based on these parameters
+    
     model_name = filename + '_' + str(selected_column) + '_' + model_type + '_' + str(num_topics) + '_' + normalisation
     #Start by getting the text from the table
     response, status_code = get_table_text(full_file_path,selected_column)
@@ -199,6 +203,26 @@ def train_table(request):
         vectorizer = tf_vectorizer
         #Save the plot
         plot_image.savefig(model_name + '.png')
+    #Now see if the model type is TF-IDF
+    #initialize this to empty as we'll use it later
+    tfidf_labels = {}
+    if model_type == "TF-IDF":
+        #Now check to see if the label column has been provided
+        if 'label_column' in request._full_data:  
+            label_column = request._full_data['label_column']
+            labels, status_code = get_table_text(full_file_path,label_column)
+            if status_code != 200:
+                return labels, status_code
+            else:
+                #Now we need to train the TF-IDF model
+                vectorizer, model, score = train_tfidf(df,labels)
+                tfidf_labels = {'score': score,'labels':json.dumps(labels.unique().tolist())}
+                num_topics = len(labels.unique())
+        else:
+            response = {"Message" : "Label Column requires for TF-IDF training"}
+            status_code = status.HTTP_400_BAD_REQUEST
+            return response, status_code
+
     #Now save the model
     saved_model = {'file_name':filename,
                     'selected_column':selected_column,
@@ -222,7 +246,7 @@ def train_table(request):
             'model_type': model_type,
             'num_topics': num_topics,
             'normalisation': normalisation,
-            'topic_labels':json.dumps({})}
+            'topic_labels':json.dumps(tfidf_labels)}
     #Open the file
     saved_model = open(saved_model_name,'rb')
     model_image = open(model_name + '.png','rb')
