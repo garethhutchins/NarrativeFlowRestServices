@@ -807,6 +807,49 @@
           "body": "{\n    \"name\": \"bd8c3a33-a7e7-480d-b7ee-7194e703fe34\",\n    \"file_name\": \"BBC News Train_c5NZ1pf.csv\",\n    \"model_type\": \"LDA\",\n    \"num_topics\": 6,\n    \"normalisation\": \"Lemmatisation\",\n    \"topic_labels\": {},\n    \"save_model\": \"http://127.0.0.1:8001/models/models/F6C2BE.sav\",\n    \"topics_image\": \"http://127.0.0.1:8001/models/models/BBC_News_Train_c5NZ1pf.csv_Text_LDA_0_Lemmatisation.png\"\n}"
         }
       ]
+    },
+    {
+      "name": "Train Topic Table TF-IDF",
+      "id": "eb00f1ae-4201-4228-a125-89671ab8b33b",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": "/C:/Users/ghutchin/Documents/UOR/Project/Documents/BBC/learn-ai-bbc/BBC News Train.csv"
+            },
+            {
+              "key": "normalisation",
+              "value": "Lemmatisation",
+              "type": "text"
+            },
+            {
+              "key": "model_type",
+              "value": "NMF",
+              "type": "text"
+            },
+            {
+              "key": "selected_column",
+              "value": "Text",
+              "type": "text"
+            },
+            {
+              "key": "num_topics",
+              "value": "10",
+              "type": "text"
+            }
+          ]
+        },
+        "url": "http://127.0.0.1:8000/train_topic_table/"
+      },
+      "response": []
     }
   ]
 }
