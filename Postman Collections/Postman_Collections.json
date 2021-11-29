@@ -353,6 +353,69 @@
           "cookie": [],
           "responseTime": null,
           "body": "{\n    \"name\": \"b7eecad8-c6dc-4f4b-93ed-49103acdf364\",\n    \"file_name\": \"BBC News Train_0fHiDce.csv\",\n    \"model_type\": \"NMF\",\n    \"num_topics\": 10,\n    \"normalisation\": \"Lemmatisation\",\n    \"topic_labels\": {\n        \"1\": \"Rugby\",\n        \"2\": \"Politics\",\n        \"3\": \"Mobile Phones\",\n        \"4\": \"Film\",\n        \"5\": \"Economy\",\n        \"6\": \"Russia\",\n        \"7\": \"Technology\",\n        \"8\": \"Music\",\n        \"9\": \"Football\",\n        \"10\": \"Olympics\"\n    },\n    \"save_model\": \"http://127.0.0.1:8001/models/models/b7eecad8-c6dc-4f4b-93ed-49103acdf364.sav\",\n    \"topics_image\": \"http://127.0.0.1:8001/models/models/b7eecad8-c6dc-4f4b-93ed-49103acdf364.png\"\n}"
+        },
+        {
+          "id": "2da71f44-a628-44ac-83e9-2537de1faa07",
+          "name": "Update Labels",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "topic_labels",
+                  "value": "{\"1\": \"Rugby\",\"2\":\"Politics\",\"3\":\"Mobile Phones\",\"4\":\"Film\",\"5\":\"Economy\",\"6\":\"Russia\",\n\"7\":\"Technology\",\"8\":\"Music\",\"9\":\"Football\",\"10\":\"Olympics\"}",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": "http://127.0.0.1:8000/models/e66f845c-9a52-4cdd-9f8f-4a133544c9ea/"
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Date",
+              "value": "Mon, 29 Nov 2021 20:07:54 GMT"
+            },
+            {
+              "key": "Server",
+              "value": "WSGIServer/0.2 CPython/3.9.5"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Vary",
+              "value": "Accept, Cookie"
+            },
+            {
+              "key": "Allow",
+              "value": "GET, PUT, HEAD, OPTIONS"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Length",
+              "value": "495"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "Referrer-Policy",
+              "value": "same-origin"
+            }
+          ],
+          "cookie": [],
+          "responseTime": null,
+          "body": "{\n    \"name\": \"e66f845c-9a52-4cdd-9f8f-4a133544c9ea\",\n    \"file_name\": \"BBC News Train.csv\",\n    \"model_type\": \"NMF\",\n    \"num_topics\": 10,\n    \"normalisation\": \"Lemmatisation\",\n    \"topic_labels\": {\n        \"1\": \"Rugby\",\n        \"2\": \"Politics\",\n        \"3\": \"Mobile Phones\",\n        \"4\": \"Film\",\n        \"5\": \"Economy\",\n        \"6\": \"Russia\",\n        \"7\": \"Technology\",\n        \"8\": \"Music\",\n        \"9\": \"Football\",\n        \"10\": \"Olympics\"\n    },\n    \"save_model\": \"http://127.0.0.1:8001/models/models/e66f845c-9a52-4cdd-9f8f-4a133544c9ea.sav\",\n    \"topics_image\": \"http://127.0.0.1:8001/models/models/e66f845c-9a52-4cdd-9f8f-4a133544c9ea.png\"\n}"
         }
       ]
     },
