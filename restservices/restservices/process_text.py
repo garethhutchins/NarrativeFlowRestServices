@@ -83,11 +83,15 @@ def predict_text(request):
     words = word_tokenize(text)
     num_words = len(words)
     pos = 0
-    output = []
+    topics = []
+    scores = []
     text_window_contents = []
     while pos < (num_words - window_size):
         current_block = ' '.join(words[pos:(pos+window_size)])
-        current_block = remove_stop_lem(current_block)
+        if saved_model['normalisation'] == 'Lemmatisation':
+            current_block = remove_stop_lem(current_block)
+        if saved_model['normalisation'] == 'Stemming':
+            current_block = remove_stop_stem(current_block)
         tf_test = saved_model['vectorizer'].transform([current_block])
         predictions = saved_model['model'].transform(tf_test)
         tp = predictions*100
@@ -99,11 +103,12 @@ def predict_text(request):
         window_pred = pd.concat([labels, predictionsx],axis=1)
         window_pred.columns = ['Topic','Confidence']
         window_pred = window_pred.sort_values(by=['Confidence'],ascending=False)
-        window_pred = window_pred.iloc[0][0]
-        output.append(window_pred)
+        #Add the confidence score to the output
+        topics.append(window_pred.iloc[:,0])
+        scores.append(window_pred.iloc[:,1])
         text_window_contents.append(' '.join(words[pos:(pos+window_size)]))
         pos += window_slide
-    f_results = pd.DataFrame({'Text':text_window_contents,'Topic':output})
+    f_results = pd.DataFrame({'Text':text_window_contents,'Topics':topics,'Scores':scores})
     json_results = f_results.to_json(orient='records')
     status_code = status.HTTP_200_OK
     return json.loads(json_results), status_code

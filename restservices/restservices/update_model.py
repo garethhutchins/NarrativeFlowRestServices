@@ -67,12 +67,12 @@ def update_labels(request):
         
         #Get the files from the storage service
         saved_model = pickle.load(urllib.request.urlopen(models_json['save_model']))
-        #saved_model = requests.get(models_json['save_model'])
-        #p_saved_model = pickle.load(saved_model.content,encoding='bytes')
+        
         #Now send the update to the storage Service
         models_json['topic_labels'] = topic_labels
-        tfidf_feature_names=saved_model['vectorizer'].get_feature_names()
-        plot_image = plot_top_words(saved_model['model'], tfidf_feature_names, models_json['num_topics'], 'Topics in NMF model',models_json['num_topics'],json_topics)
+        feature_names=saved_model['vectorizer'].get_feature_names()
+       
+        plot_image = plot_top_words(saved_model['model'], feature_names, models_json['num_topics'], 'Topics in NMF model',models_json['num_topics'],json_topics)
         #Save the plot
         plot_image.savefig(models_json['name'] + '.png')
         #Save the model again so it can be updated

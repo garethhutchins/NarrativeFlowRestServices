@@ -132,4 +132,4 @@ def train_lda(df,num_topics):
     lda.fit(tf)
     n_top_words = 10
     plot_image = plot_top_words(lda, tf_vectorizer.get_feature_names(), n_top_words, 'Topics in LDA model',num_topics,{}) 
-    return tf, lda, plot_image
+    return tf_vectorizer, lda, plot_image
