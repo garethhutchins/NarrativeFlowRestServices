@@ -22,7 +22,7 @@ import uuid
 import json
 
 #Use the commong functions
-from .common_processing import remove_stop_lem, train_nmf, remove_stop_stem, train_lda, predict_lda_topics, train_tfidf
+from .common_processing import plot_coefficients, remove_stop_lem, train_nmf, remove_stop_stem, train_lda, predict_lda_topics, train_tfidf
 
 
 #Get the text from the table file
@@ -216,6 +216,7 @@ def train_table(request):
             else:
                 #Now we need to train the TF-IDF model
                 vectorizer, model, score = train_tfidf(df,labels)
+                
                 tfidf_labels = {'score': score,'labels':json.dumps(labels.unique().tolist())}
                 num_topics = len(labels.unique())
         else:
