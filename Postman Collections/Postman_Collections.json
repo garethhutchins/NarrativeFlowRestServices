@@ -832,7 +832,7 @@
             },
             {
               "key": "model_type",
-              "value": "NMF",
+              "value": "TF-IDF",
               "type": "text"
             },
             {
@@ -841,8 +841,8 @@
               "type": "text"
             },
             {
-              "key": "num_topics",
-              "value": "10",
+              "key": "label_column",
+              "value": "Category",
               "type": "text"
             }
           ]
