@@ -63,6 +63,29 @@ def remove_stop_lem(text):
 #This example came from the SKlearn tutorial
 #https://scikit-learn.org/stable/auto_examples/applications/plot_topics_extraction_with_nmf_lda.html
 
+def plot_tfidf(lables,word_scores):
+    num_lables = len(lables)
+    rows = math.ceil(num_lables/5)
+    fs = 15*rows
+    fig, axes = plt.subplots(rows, 5, figsize=(fs, fs), sharex=True)
+    axes = axes.flatten()
+    y = 0
+    title = 'TF-IDF Topics'
+    for lable in lables:
+        df = word_scores[y]
+        ax = axes[y]
+        ax.barh(df['Words'], df['Score'], height=0.7)
+        ax.set_title(lable,
+                     fontdict={'fontsize': 30})
+        ax.invert_yaxis()
+        ax.tick_params(axis='both', which='major', labelsize=20)
+        for i in 'top right left'.split():
+            ax.spines[i].set_visible(False)
+        fig.suptitle(title, fontsize=40)
+        y += 1
+    plt.subplots_adjust(top=0.90, bottom=0.05, wspace=0.90, hspace=0.3)
+    return plt  
+
 def plot_top_words(model, feature_names, n_top_words, title,num_topics,topic_names):
     rows = math.ceil(num_topics/5)
     fs = 15*rows
@@ -91,20 +114,6 @@ def plot_top_words(model, feature_names, n_top_words, title,num_topics,topic_nam
     plt.subplots_adjust(top=0.90, bottom=0.05, wspace=0.90, hspace=0.3)
     return plt   
      
-def plot_coefficients(classifier, feature_names, top_features=20):
-    #from: https://aneesha.medium.com/visualising-top-features-in-linear-svm-with-scikit-learn-and-matplotlib-3454ab18a14d
-    coef = classifier.coef_.ravel()
-    top_positive_coefficients = np.argsort(coef)[-top_features:]
-    top_negative_coefficients = np.argsort(coef)[:top_features]
-    top_coefficients = np.hstack([top_negative_coefficients, top_positive_coefficients])
-    # create plot
-    plt.figure(figsize=(15, 5))
-    colors = ['red' if c < 0 else 'blue' for c in coef[top_coefficients]]
-    plt.bar(np.arange(2 * top_features), coef[top_coefficients], color=colors)
-    feature_names = np.array(feature_names)
-    plt.xticks(np.arange(1, 1 + 2 * top_features), feature_names[top_coefficients], rotation=60, ha='right')
-    plt.show()
-
 #Train the NMF model
 def train_nmf(df,num_topics):
     tfidf_vectorizer = TfidfVectorizer()
@@ -163,28 +172,37 @@ def train_tfidf(text,labels):
     X_train, X_test, y_train, y_test = train_test_split(
             X, labels, test_size=0.3, random_state=42
         )
-    svm = SVC(C=1000000.0, gamma='auto', kernel='rbf')
+    svm = SVC(C=1000000.0, gamma='auto', kernel='rbf',probability=True)
     svm.fit(X_train, y_train)
     score = svm.score(X_test,y_test)
     #Need to figure out a way to display top words for this
     #Get the unique labels and loop
     u_lbls = labels.unique().tolist()
     con_tbl = pd.concat([text,labels], axis=1)
+    lbls = []
+    top_words = []
     for x in u_lbls:
         #Now only select rows for this label
         c_text = con_tbl[con_tbl['Category'] == x]
         # Now combine all of the text for that category
         combine_text = ' '.join(c_text['Text'])
-        #Now look at the top features for that class
-        feature_array = np.array(vectorizer.get_feature_names())
-        res = vectorizer.transform([combine_text])
-        tfidf_sorting = np.argsort(res.toarray()).flatten()[::-1]
-        # see if we can get the scores
-        n = 10
-        top_n = feature_array[tfidf_sorting][:n]
-
-    plot_coefficients(svm,vectorizer.get_feature_names())
-    plot_image = plot_top_words(svm,vectorizer.get_feature_names(),10,'Topics in TF-IDF Model',len(labels.unique()),{})
-    return vectorizer, svm, score
+      
+        response = vectorizer.transform([combine_text])
+        feature_names = vectorizer.get_feature_names()
+        words = []
+        scores = []
+        for col in response.nonzero()[1]:
+            words.append(feature_names[col])
+            scores.append(response[0, col])
+        #Now convert into a dataframe and sort
+        d = {'Words':words,'Score':scores}
+        df = pd.DataFrame(d)
+        df = df.sort_values(by='Score',ascending=False)            
+        df = df.head(20)
+        lbls.append(x)
+        top_words.append(df)
+    
+    plot_image = plot_tfidf(lbls,top_words)
+    return vectorizer, svm, score, plot_image
 
 

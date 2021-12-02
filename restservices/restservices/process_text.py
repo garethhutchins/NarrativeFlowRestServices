@@ -93,12 +93,20 @@ def predict_text(request):
         if saved_model['normalisation'] == 'Stemming':
             current_block = remove_stop_stem(current_block)
         tf_test = saved_model['vectorizer'].transform([current_block])
-        predictions = saved_model['model'].transform(tf_test)
+        #See if it's a TF-IDF model as the command is different
+        if saved_model['model_type'] == 'TF-IDF':
+            #Get the probabbilities of the classes
+            predictions = saved_model['model'].predict_proba(tf_test)
+            #Get the class names
+            dict_vals = saved_model['model'].classes_
+        else:
+            predictions = saved_model['model'].transform(tf_test)
+            dict_labels = models_json['topic_labels']
+            dict_vals = dict_labels.values()
         tp = predictions*100
         tp = np.around(tp,decimals=2)
         predictionsx = pd.DataFrame(tp).T
-        dict_labels = models_json['topic_labels']
-        dict_vals = dict_labels.values()
+        
         labels = pd.DataFrame(dict_vals)
         window_pred = pd.concat([labels, predictionsx],axis=1)
         window_pred.columns = ['Topic','Confidence']
