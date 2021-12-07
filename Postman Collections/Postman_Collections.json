@@ -1014,7 +1014,7 @@
       ]
     },
     {
-      "name": "Train Topic Table TF-IDF Copy",
+      "name": "Train Topic Table TF-IDF Netflix",
       "id": "ac02fc4b-b4e3-4260-b024-f3769984a173",
       "protocolProfileBehavior": {
         "disableBodyPruning": true
