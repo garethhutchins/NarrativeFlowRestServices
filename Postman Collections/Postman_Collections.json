@@ -1028,7 +1028,7 @@
             {
               "key": "file",
               "type": "file",
-              "src": "/C:/Users/ghutchin/Documents/UOR/Project/Documents/BBC/learn-ai-bbc/BBC News Train.csv"
+              "src": "/C:/Users/ghutchin/Documents/UOR/Project/Documents/netflix.csv"
             },
             {
               "key": "normalisation",
@@ -1042,12 +1042,12 @@
             },
             {
               "key": "selected_column",
-              "value": "Text",
+              "value": "summary",
               "type": "text"
             },
             {
               "key": "label_column",
-              "value": "Category",
+              "value": "genres",
               "type": "text"
             }
           ]
