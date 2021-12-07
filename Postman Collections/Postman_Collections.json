@@ -1012,6 +1012,135 @@
           "body": "{\n    \"name\": \"d6f95a01-eede-448b-9312-df48e82c57ae\",\n    \"file_name\": \"BBC News Train_dWrRGgV.csv\",\n    \"model_type\": \"TF-IDF\",\n    \"num_topics\": 5,\n    \"normalisation\": \"Lemmatisation\",\n    \"topic_labels\": {\n        \"score\": 0.9753914988814317,\n        \"labels\": \"[\\\"business\\\", \\\"tech\\\", \\\"politics\\\", \\\"sport\\\", \\\"entertainment\\\"]\"\n    },\n    \"save_model\": \"http://127.0.0.1:8001/models/models/8491DF.sav\",\n    \"topics_image\": \"http://127.0.0.1:8001/models/models/BBC_News_Train_dWrRGgV.csv_Text_TF-IDF_0_Lemmatisation.png\"\n}"
         }
       ]
+    },
+    {
+      "name": "Train Topic Table TF-IDF Copy",
+      "id": "ac02fc4b-b4e3-4260-b024-f3769984a173",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": "/C:/Users/ghutchin/Documents/UOR/Project/Documents/BBC/learn-ai-bbc/BBC News Train.csv"
+            },
+            {
+              "key": "normalisation",
+              "value": "Lemmatisation",
+              "type": "text"
+            },
+            {
+              "key": "model_type",
+              "value": "TF-IDF",
+              "type": "text"
+            },
+            {
+              "key": "selected_column",
+              "value": "Text",
+              "type": "text"
+            },
+            {
+              "key": "label_column",
+              "value": "Category",
+              "type": "text"
+            }
+          ]
+        },
+        "url": "http://127.0.0.1:8000/train_topic_table/"
+      },
+      "response": [
+        {
+          "id": "4ece8136-baf9-4a2d-96cd-b7356c6842e7",
+          "name": "Train Topic Table TF-IDF",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": [
+                    "/C:/Users/ghutchin/Documents/UOR/Project/Documents/BBC/learn-ai-bbc/BBC News Train.csv"
+                  ]
+                },
+                {
+                  "key": "normalisation",
+                  "value": "Lemmatisation",
+                  "type": "text"
+                },
+                {
+                  "key": "model_type",
+                  "value": "TF-IDF",
+                  "type": "text"
+                },
+                {
+                  "key": "selected_column",
+                  "value": "Text",
+                  "type": "text"
+                },
+                {
+                  "key": "label_column",
+                  "value": "Category",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": "http://127.0.0.1:8000/train_topic_table/"
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Date",
+              "value": "Thu, 02 Dec 2021 21:54:25 GMT"
+            },
+            {
+              "key": "Server",
+              "value": "WSGIServer/0.2 CPython/3.9.5"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Vary",
+              "value": "Accept, Cookie"
+            },
+            {
+              "key": "Allow",
+              "value": "GET, POST, HEAD, OPTIONS"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Length",
+              "value": "455"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "Referrer-Policy",
+              "value": "same-origin"
+            }
+          ],
+          "cookie": [],
+          "responseTime": null,
+          "body": "{\n    \"name\": \"d6f95a01-eede-448b-9312-df48e82c57ae\",\n    \"file_name\": \"BBC News Train_dWrRGgV.csv\",\n    \"model_type\": \"TF-IDF\",\n    \"num_topics\": 5,\n    \"normalisation\": \"Lemmatisation\",\n    \"topic_labels\": {\n        \"score\": 0.9753914988814317,\n        \"labels\": \"[\\\"business\\\", \\\"tech\\\", \\\"politics\\\", \\\"sport\\\", \\\"entertainment\\\"]\"\n    },\n    \"save_model\": \"http://127.0.0.1:8001/models/models/8491DF.sav\",\n    \"topics_image\": \"http://127.0.0.1:8001/models/models/BBC_News_Train_dWrRGgV.csv_Text_TF-IDF_0_Lemmatisation.png\"\n}"
+        }
+      ]
     }
   ]
 }
