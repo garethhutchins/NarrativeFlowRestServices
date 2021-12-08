@@ -215,9 +215,9 @@ def train_table(request):
                 return labels, status_code
             else:
                 #Now we need to train the TF-IDF model
-                vectorizer, model, score, plot_image = train_tfidf(df,labels)
+                vectorizer, model, score, plot_image, lbls = train_tfidf(df,labels)
                 plot_image.savefig(model_name + '.png')
-                tfidf_labels = {'score': score,'labels':json.dumps(labels.unique().tolist())}
+                tfidf_labels = {'score': score,'labels':json.dumps(lbls)}
                 num_topics = len(labels.unique())
         else:
             response = {"Message" : "Label Column requires for TF-IDF training"}

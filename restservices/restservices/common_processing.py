@@ -167,18 +167,44 @@ def train_lda(df,num_topics):
 def train_tfidf(text,labels):
     # Create the TF-IDF vectoriser and transform the corpus
     vectorizer = TfidfVectorizer(min_df=1)
-    X = vectorizer.fit_transform(text)
+    #Start making changes for multi lables
+    # Loop though each text entry
+    out_text = []
+    out_lable = []
+    row_count = 0
+    for t in text:
+        if labels[row_count] == np.nan:
+            row_count +=1
+            continue
+        if type(labels[row_count]) != str:
+            row_count +=1
+            continue
+        else:
+            l_list = labels[row_count].split(',')
+        
+        row_count += 1
+        #Now copy the text and add the lables so we have duplicate texts with different lables
+        for l in l_list:
+            out_text.append(t)
+            out_lable.append(l)
+
+
+    #End making changes for multi lables
+    X = vectorizer.fit_transform(out_text)
     # Create the training-test split of the data
     X_train, X_test, y_train, y_test = train_test_split(
-            X, labels, test_size=0.3, random_state=42
+            X, out_lable, test_size=0.3, random_state=42
         )
     svm = SVC(C=1000000.0, gamma='auto', kernel='rbf',probability=True)
     svm.fit(X_train, y_train)
     score = svm.score(X_test,y_test)
-    #Need to figure out a way to display top words for this
+    
     #Get the unique labels and loop
-    u_lbls = labels.unique().tolist()
-    con_tbl = pd.concat([text,labels], axis=1)
+    u_lbls = set(out_lable)
+    con_tbl = pd.DataFrame()
+    con_tbl['Text'] = out_text
+    con_tbl['Category'] = out_lable
+    
     lbls = []
     top_words = []
     for x in u_lbls:
@@ -195,14 +221,16 @@ def train_tfidf(text,labels):
             words.append(feature_names[col])
             scores.append(response[0, col])
         #Now convert into a dataframe and sort
-        d = {'Words':words,'Score':scores}
-        df = pd.DataFrame(d)
+        df = pd.DataFrame()
+        df['Words'] = words
+        df['Score'] = scores
+        
         df = df.sort_values(by='Score',ascending=False)            
         df = df.head(20)
         lbls.append(x)
         top_words.append(df)
     
     plot_image = plot_tfidf(lbls,top_words)
-    return vectorizer, svm, score, plot_image
+    return vectorizer, svm, score, plot_image,lbls
 
 
