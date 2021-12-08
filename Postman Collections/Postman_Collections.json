@@ -760,7 +760,7 @@
       ]
     },
     {
-      "name": "Post Process Text Copy",
+      "name": "Process Text Netflix",
       "id": "564388be-12d9-4d1e-90b2-a643a1234b0e",
       "protocolProfileBehavior": {
         "disableBodyPruning": true
