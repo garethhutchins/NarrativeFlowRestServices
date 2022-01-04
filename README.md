@@ -10,9 +10,9 @@ Create a new model from a CSV file
 {
     'file':'The input csv file',<br />
     'normalisation' : 'None|Stemming|Lemmatisation',<br />
-    'model_type' : 'LDA|NMF|TF-IDF',<br />
+    'model_type' : 'k-means|LDA|NMF|TF-IDF',<br />
     'selected_column' : 'Mandatory is more than one column, can be name or index of column',<br />
-    'num_topics' : 'The number of topics that is expected. Mandatory for NMF models',<br />
+    'num_topics' : 'The number of topics that is expected. Mandatory for k-means & NMF models',<br />
     'label_column' : 'The Labels for TF-IDF Training'<br /> 
 }
 
@@ -22,7 +22,7 @@ Get's a list of trained models - example response<br />
     {<br />
         "name":\model id",<br />
         "file_name":"Original File name",<br />
-        "model_type":"NMF|LDA|TF-IDF",<br />
+        "model_type":"k-means|NMF|LDA|TF-IDF",<br />
         "num_topics":number of topcics,<br />
         "normalisation":"None|Stemming|Lemmatisation",<br />
         "topic_labels":{},<br />

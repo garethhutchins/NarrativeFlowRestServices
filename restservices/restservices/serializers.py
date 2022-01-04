@@ -24,7 +24,7 @@ class RemoveStopWordSerializer(Serializer):
 class TrainTopicTableSerializer(Serializer):
    file = FileField()
    selected_column = CharField(allow_blank=False)
-   model_type = ChoiceField(choices = (("LDA","LDA"),("NMF","NMF"),("TF-IDF","TF-IDF")))
+   model_type = ChoiceField(choices = (("k-means","k-means"),("LDA","LDA"),("NMF","NMF"),("TF-IDF","TF-IDF")))
    num_topics = IntegerField()
    normalisation = ChoiceField(choices = (("None","None"),("Stemming","Stemming"),("Lemmatisation","Lemmatisation")))
    class Meta:

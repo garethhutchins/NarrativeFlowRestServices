@@ -5,6 +5,13 @@ import pandas as pd
 #NLTK for speach
 import nltk
 #nltk.download('stopwords')
+#pip install sentence-transformers
+from sentence_transformers import SentenceTransformer
+from nltk.cluster import KMeansClusterer, euclidean_distance
+from nltk.probability import FreqDist
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
+import math
 
 
 from nltk.corpus import stopwords
@@ -232,5 +239,61 @@ def train_tfidf(text,labels):
     
     plot_image = plot_tfidf(lbls,top_words)
     return vectorizer, svm, score, plot_image,lbls
+#Train k-means
+def plot_kmeans(lables,words):
+    num_lables = len(lables)
+    rows = math.ceil(num_lables/5)
+    fs = 15*rows
+    fig, axes = plt.subplots(rows, 5, figsize=(fs, fs), sharex=True)
+    axes = axes.flatten()
+    y = 0
+    title = 'kMeans Topics'
+    for lable in lables:
+        #Get the words in the list
+        words = pd.DataFrame(results[y]).values.tolist()
+        words = [item for sublist in words for item in sublist]
+        stop_words = set(stopwords.words('english'))
+        keepWords = []
+        for w in words:
+            if w is None:
+                continue
+            if not w in stop_words:
+                if w.isalpha():
+                    keepWords.append(w.lower())
+        fdist = FreqDist(keepWords)
+        top_words = 20
+        df = pd.DataFrame(fdist.most_common(top_words),columns=['Word','Score'])
+        ax = axes[y]
+        ax.barh(df['Word'], df['Score'], height=0.7)
+        ax.set_title(lable,
+                     fontdict={'fontsize': 30})
+        ax.invert_yaxis()
+        ax.tick_params(axis='both', which='major', labelsize=20)
+        for i in 'top right left'.split():
+            ax.spines[i].set_visible(False)
+        fig.suptitle(title, fontsize=40)
+        y += 1
+    plt.subplots_adjust(top=0.90, bottom=0.05, wspace=0.90, hspace=0.3)
+    return plt  
+def train_kmeans(Text,num_topics):
+    model = SentenceTransformer('distilbert-base-nli-mean-tokens')
+    embeddings = model.encode(Text)
+    #nltk cluster
+    clusterer = KMeansClusterer(num_topics, euclidean_distance)
+    clusters = clusterer.cluster(embeddings, assign_clusters=True)
+    #So that we can see what words are appearing in each cluster, lets add them
+    #Loop through all of the text rows
+    common_words = {}
+    for x in range(num_topics):
+        common_words[x] = []
 
-
+    for t in Text:
+        doc = model.encode(t)
+        #Now classify
+        res = clusterer.classify(doc)
+        #See if this cluster is already in the dictionary
+        #Tokenise the text removing stop words
+        common_words[res].append(word_tokenize(t))
+    plot_image = plot_kmeans(range(0,(num_topics-1)),common_words)
+    return clusterer, plot_image
+    
