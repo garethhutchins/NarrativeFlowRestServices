@@ -10,7 +10,7 @@ Create a new model from a CSV file
 {
     'file':'The input csv file',<br />
     'normalisation' : 'None|Stemming|Lemmatisation',<br />
-    'model_type' : 'k-means|LDA|NMF|TF-IDF',<br />
+    'model_type' : 'K-MEANS|LDA|NMF|TF-IDF',<br />
     'selected_column' : 'Mandatory is more than one column, can be name or index of column',<br />
     'num_topics' : 'The number of topics that is expected. Mandatory for k-means & NMF models',<br />
     'label_column' : 'The Labels for TF-IDF Training'<br /> 

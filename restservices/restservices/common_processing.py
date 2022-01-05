@@ -240,7 +240,7 @@ def train_tfidf(text,labels):
     plot_image = plot_tfidf(lbls,top_words)
     return vectorizer, svm, score, plot_image,lbls
 #Train k-means
-def plot_kmeans(lables,words):
+def plot_kmeans(lables,results):
     num_lables = len(lables)
     rows = math.ceil(num_lables/5)
     fs = 15*rows
@@ -294,6 +294,6 @@ def train_kmeans(Text,num_topics):
         #See if this cluster is already in the dictionary
         #Tokenise the text removing stop words
         common_words[res].append(word_tokenize(t))
-    plot_image = plot_kmeans(range(0,(num_topics-1)),common_words)
-    return clusterer, plot_image
+    plot_image = plot_kmeans(range(0,(num_topics)),common_words)
+    return clusterer, plot_image, common_words
     

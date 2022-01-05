@@ -8,7 +8,7 @@ import json
 import urllib.request
 import os
 
-from .common_processing import plot_top_words
+from .common_processing import plot_top_words, plot_kmeans
 
 
 def list_models():
@@ -70,9 +70,12 @@ def update_labels(request):
         
         #Now send the update to the storage Service
         models_json['topic_labels'] = topic_labels
-        feature_names=saved_model['vectorizer'].get_feature_names()
-       
-        plot_image = plot_top_words(saved_model['model'], feature_names, models_json['num_topics'], 'Topics in NMF model',models_json['num_topics'],json_topics)
+        if models_json['model_type'] == 'K-MEANS':
+            #We need to do something different for k-Means
+            plot_image = plot_kmeans(list(json_topics.values()),saved_model['vectorizer'])
+        else:    
+            feature_names=saved_model['vectorizer'].get_feature_names()
+            plot_image = plot_top_words(saved_model['model'], feature_names, models_json['num_topics'], 'Topics in NMF model',models_json['num_topics'],json_topics)
         #Save the plot
         plot_image.savefig(models_json['name'] + '.png')
         #Save the model again so it can be updated

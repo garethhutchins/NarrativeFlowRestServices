@@ -114,13 +114,13 @@ def train_table(request):
     #Now check that the column can be extracted from the table
     
     #Check for the Model Type
-    model_key_error = "model_type key error: k-means, LDA, NMF or TF-IDF Model Selection Required"
+    model_key_error = "model_type key error: K-MEANS, LDA, NMF or TF-IDF Model Selection Required"
     if 'model_type' not in request._full_data:
         response = {"Message":model_key_error}
         status_code = status.HTTP_400_BAD_REQUEST
         return response, status_code
     model_type = request._full_data['model_type']
-    if model_type != 'LDA' and model_type != 'NMF' and model_type != 'TF-IDF' and model_type != 'k-means':
+    if model_type != 'LDA' and model_type != 'NMF' and model_type != 'TF-IDF' and model_type != 'K-MEANS':
         response = {"Message":model_key_error}
         status_code = status.HTTP_400_BAD_REQUEST
         return response, status_code
@@ -177,11 +177,11 @@ def train_table(request):
     #If the selected Model is k-means then we're going to do the normalisation after the creation of the model
     
 
-    if normalisation == "Stemming" and model_type != 'k-means':
+    if normalisation == "Stemming" and model_type != 'K-MEANS':
         #Call the stemming function on the table
         df = df.apply(remove_stop_stem)
         response = df
-    if normalisation == "Lemmatisation" and model_type != 'k-means':
+    if normalisation == "Lemmatisation" and model_type != 'K-MEANS':
         #Call the lemmatisation function on the table
         df = df.apply(remove_stop_lem)
         response = df
@@ -212,8 +212,14 @@ def train_table(request):
         #Save the plot
         plot_image.savefig(model_name + '.png')
     #Now check to see if the Model Type is k-means
-    if model_type == 'k-means':
-        model, plot_image = train_kmeans(df,num_topics)
+    if model_type == 'K-MEANS':
+        #Check the Num Topics is > 0 
+        if num_topics <1:
+            response = {"Message" : "Number of Topics must be greater than 0 for the K-Means model"}
+            status_code = status.HTTP_400_BAD_REQUEST
+            return response, status_code
+        model, plot_image, vectorizer = train_kmeans(df,num_topics)
+        plot_image.savefig(model_name + '.png')
     #Now see if the model type is TF-IDF
     #initialize this to empty as we'll use it later
     tfidf_labels = {}
