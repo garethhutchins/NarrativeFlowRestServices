@@ -70,19 +70,19 @@ def remove_stop_lem(text):
 #This example came from the SKlearn tutorial
 #https://scikit-learn.org/stable/auto_examples/applications/plot_topics_extraction_with_nmf_lda.html
 
-def plot_tfidf(lables,word_scores):
-    num_lables = len(lables)
-    rows = math.ceil(num_lables/5)
+def plot_tfidf(labels,word_scores):
+    num_labels = len(labels)
+    rows = math.ceil(num_labels/5)
     fs = 15*rows
     fig, axes = plt.subplots(rows, 5, figsize=(fs, fs), sharex=True)
     axes = axes.flatten()
     y = 0
     title = 'TF-IDF Topics'
-    for lable in lables:
+    for label in labels:
         df = word_scores[y]
         ax = axes[y]
         ax.barh(df['Words'], df['Score'], height=0.7)
-        ax.set_title(lable,
+        ax.set_title(label,
                      fontdict={'fontsize': 30})
         ax.invert_yaxis()
         ax.tick_params(axis='both', which='major', labelsize=20)
@@ -174,10 +174,10 @@ def train_lda(df,num_topics):
 def train_tfidf(text,labels):
     # Create the TF-IDF vectoriser and transform the corpus
     vectorizer = TfidfVectorizer(min_df=1)
-    #Start making changes for multi lables
+    #Start making changes for multi labels
     # Loop though each text entry
     out_text = []
-    out_lable = []
+    out_label = []
     row_count = 0
     for t in text:
         if labels[row_count] == np.nan:
@@ -186,31 +186,38 @@ def train_tfidf(text,labels):
         if type(labels[row_count]) != str:
             row_count +=1
             continue
+        #Look to see if it needs to be added or if it's a row with only blank text
+        if len(t) <10:
+            row_count += 1
+            continue
         else:
             l_list = labels[row_count].split(',')
-        
+        if l_list[0] == "\\N":
+            row_count += 1
+            continue
         row_count += 1
-        #Now copy the text and add the lables so we have duplicate texts with different lables
+        #Now copy the text and add the labels so we have duplicate texts with different labels
         for l in l_list:
+            
             out_text.append(t)
-            out_lable.append(l)
+            out_label.append(l)
 
 
-    #End making changes for multi lables
+    #End making changes for multi labels
     X = vectorizer.fit_transform(out_text)
     # Create the training-test split of the data
     X_train, X_test, y_train, y_test = train_test_split(
-            X, out_lable, test_size=0.3, random_state=42
+            X, out_label, test_size=0.3, random_state=42
         )
     svm = SVC(C=1000000.0, gamma='auto', kernel='rbf',probability=True)
     svm.fit(X_train, y_train)
     score = svm.score(X_test,y_test)
     
     #Get the unique labels and loop
-    u_lbls = set(out_lable)
+    u_lbls = set(out_label)
     con_tbl = pd.DataFrame()
     con_tbl['Text'] = out_text
-    con_tbl['Category'] = out_lable
+    con_tbl['Category'] = out_label
     
     lbls = []
     top_words = []
@@ -240,15 +247,15 @@ def train_tfidf(text,labels):
     plot_image = plot_tfidf(lbls,top_words)
     return vectorizer, svm, score, plot_image,lbls
 #Train k-means
-def plot_kmeans(lables,results):
-    num_lables = len(lables)
-    rows = math.ceil(num_lables/5)
+def plot_kmeans(labels,results):
+    num_labels = len(labels)
+    rows = math.ceil(num_labels/5)
     fs = 15*rows
     fig, axes = plt.subplots(rows, 5, figsize=(fs, fs), sharex=True)
     axes = axes.flatten()
     y = 0
     title = 'kMeans Topics'
-    for lable in lables:
+    for label in labels:
         #Get the words in the list
         words = pd.DataFrame(results[y]).values.tolist()
         words = [item for sublist in words for item in sublist]
@@ -265,7 +272,7 @@ def plot_kmeans(lables,results):
         df = pd.DataFrame(fdist.most_common(top_words),columns=['Word','Score'])
         ax = axes[y]
         ax.barh(df['Word'], df['Score'], height=0.7)
-        ax.set_title(lable,
+        ax.set_title(label,
                      fontdict={'fontsize': 30})
         ax.invert_yaxis()
         ax.tick_params(axis='both', which='major', labelsize=20)
