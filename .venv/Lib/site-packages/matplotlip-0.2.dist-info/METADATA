@@ -1,0 +1,23 @@
+Metadata-Version: 2.1
+Name: matplotlip
+Version: 0.2
+Summary: supporting matplotlib
+Home-page: https://github.com/doorBW/pypi_deploy_test
+Author: public
+Author-email: ok.imcoming@gmail.com
+License: UNKNOWN
+Download-URL: https://github.com/doorBW/pypi_deploy_test/archive/master.zip
+Keywords: matploblib
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.2
+Classifier: Programming Language :: Python :: 3.3
+Classifier: Programming Language :: Python :: 3.4
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Requires-Python: >=3
+
+UNKNOWN
+
+

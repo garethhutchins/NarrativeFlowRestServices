@@ -18,7 +18,7 @@ from django.urls import include, path, re_path
 from restservices.restservices import views
 from rest_framework import routers
 from restservices.restservices.views import GetTextViewSet, StopWordsViewSet, TrainTopicTableViewSet, ServiceSettingsViewSet, ListModelsViewSet, GetModelViewSet, ProcessTextViewSet
-from django.conf.urls import url
+from django.urls import include, re_path
 
 router = routers.DefaultRouter()
 router.register(r'gettext', GetTextViewSet, basename="gettext")

@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 #NLTK for speach
 import nltk
-#nltk.download('stopwords')
+
 #pip install sentence-transformers
 from sentence_transformers import SentenceTransformer
 from nltk.cluster import KMeansClusterer, euclidean_distance
@@ -25,6 +25,7 @@ import matplotlib.pyplot as plt
 
 lemmatizer = WordNetLemmatizer()
 #nltk.download('wordnet')
+#nltk.download('stopwords')
 #download pos
 #nltk.download('averaged_perceptron_tagger')
 #nltk.download('tagsets')

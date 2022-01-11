@@ -26,6 +26,8 @@ import pickle
 import urllib.request
 import numpy as np
 import pandas as pd
+from sentence_transformers import SentenceTransformer
+
 
 #A basic function to list the inputs
 def list_train_table_options(request):
@@ -88,6 +90,12 @@ def predict_text(request):
     text_window_contents = []
     while pos < (num_words - window_size):
         current_block = ' '.join(words[pos:(pos+window_size)])
+        #First check to see if it's the K-Means model
+        if saved_model['model_type'] == 'K-MEANS':
+            #This has a different process as we need to do word embedding
+            embedding_model = SentenceTransformer('distilbert-base-nli-mean-tokens')
+            embeddings = embedding_model.encode(current_block)
+            k_class = saved_model['model'].classify(embeddings)
         if saved_model['normalisation'] == 'Lemmatisation':
             current_block = remove_stop_lem(current_block)
         if saved_model['normalisation'] == 'Stemming':
