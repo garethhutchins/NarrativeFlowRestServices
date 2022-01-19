@@ -27,7 +27,7 @@ import urllib.request
 import numpy as np
 import pandas as pd
 from sentence_transformers import SentenceTransformer
-
+embedding_model = SentenceTransformer('distilbert-base-nli-mean-tokens')
 
 #A basic function to list the inputs
 def list_train_table_options(request):
@@ -93,9 +93,18 @@ def predict_text(request):
         #First check to see if it's the K-Means model
         if saved_model['model_type'] == 'K-MEANS':
             #This has a different process as we need to do word embedding
-            embedding_model = SentenceTransformer('distilbert-base-nli-mean-tokens')
             embeddings = embedding_model.encode(current_block)
             k_class = saved_model['model'].classify(embeddings)
+            #Get the label
+            label_dict = models_json['topic_labels']
+            #We need to +1 to get the 0 based claas
+            k_class_lbl = label_dict.get(str(k_class+1))
+            topics.append(k_class_lbl)
+            #Add the Text Window Content
+            text_window_contents.append(' '.join(words[pos:(pos+window_size)]))
+            #Move to next Window size
+            pos += window_slide
+            continue
         if saved_model['normalisation'] == 'Lemmatisation':
             current_block = remove_stop_lem(current_block)
         if saved_model['normalisation'] == 'Stemming':
@@ -124,7 +133,11 @@ def predict_text(request):
         scores.append(window_pred.iloc[:,1])
         text_window_contents.append(' '.join(words[pos:(pos+window_size)]))
         pos += window_slide
-    f_results = pd.DataFrame({'Text':text_window_contents,'Topics':topics,'Scores':scores})
+    if saved_model['model_type'] == 'K-MEANS':
+        #We don't have scores for K-MEANS
+        f_results = pd.DataFrame({'Text':text_window_contents,'Topics':topics})
+    else:
+        f_results = pd.DataFrame({'Text':text_window_contents,'Topics':topics,'Scores':scores})
     json_results = f_results.to_json(orient='records')
     status_code = status.HTTP_200_OK
     return json.loads(json_results), status_code
