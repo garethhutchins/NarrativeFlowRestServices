@@ -2,7 +2,7 @@
 import math
 import numpy as np
 import pandas as pd
-#NLTK for speach
+#NLTK for speech
 import nltk
 
 #pip install sentence-transformers
@@ -29,6 +29,7 @@ lemmatizer = WordNetLemmatizer()
 #download pos
 #nltk.download('averaged_perceptron_tagger')
 #nltk.download('tagsets')
+#nltk.download('omw-1.4')
 import re
 #Scikit for learning mechanisms
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
