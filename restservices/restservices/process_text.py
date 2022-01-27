@@ -27,11 +27,7 @@ import urllib.request
 import numpy as np
 import pandas as pd
 from sentence_transformers import SentenceTransformer
-<<<<<<< HEAD
 embedding_model = SentenceTransformer('distilbert-base-nli-mean-tokens')
-=======
-
->>>>>>> 98020ae07d40236a7721f0c4d58a8c4379da7e10
 
 #A basic function to list the inputs
 def list_train_table_options(request):
