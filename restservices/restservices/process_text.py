@@ -120,6 +120,8 @@ def predict_text(request):
             predictions = saved_model['model'].transform(tf_test)
             dict_labels = models_json['topic_labels']
             dict_vals = dict_labels.values()
+            if len(dict_vals) == 0:
+                dict_vals = list(range(0,models_json['num_topics']))
         tp = predictions*100
         tp = np.around(tp,decimals=2)
         predictionsx = pd.DataFrame(tp).T
@@ -139,6 +141,9 @@ def predict_text(request):
     else:
         f_results = pd.DataFrame({'Text':text_window_contents,'Topics':topics,'Scores':scores})
     json_results = f_results.to_json(orient='records')
+    return_results = {}
+    return_results['model_type'] = saved_model['model_type']
+    return_results['process_results'] = json.loads(json_results)
     status_code = status.HTTP_200_OK
-    return json.loads(json_results), status_code
+    return return_results, status_code
 
