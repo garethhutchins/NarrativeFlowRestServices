@@ -1,3 +1,4 @@
+from urllib import request
 from django.shortcuts import render
 from rest_framework import views
 from rest_framework import response
@@ -17,7 +18,7 @@ from .get_text import get_text
 from .stop_words import remove_stop_words, list_stop_words
 from .train_topic_table import list_train_table_options, train_table
 from .service_settings import list_settings, update_settings
-from .update_model import list_models, update_labels, get_model
+from .update_model import list_models, update_labels, get_model, delete_model
 from .process_text import list_train_table_options, predict_text
 
 #Get the Text Elements from Files
@@ -77,10 +78,16 @@ class GetModelViewSet(ViewSet):
         response = get_model(request)
         
         return Response(response, status=status.HTTP_200_OK)  
+    
     #Update the labels
     def put(self,request):
         response, status_code = update_labels(request)
         return Response(response, status_code)
+    
+    #Delete a Model
+    def delete(self,request):
+        response, status_code = delete_model(request)
+        return Response(response,status_code)
 
 #Settings
 class ServiceSettingsViewSet(ViewSet):

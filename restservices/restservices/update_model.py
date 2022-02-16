@@ -40,6 +40,24 @@ def get_model(request):
     response = models_json
     return response, models.status_code
 
+def delete_model(request):
+    # See if the setting exists if not create it and leave it blank
+    if hasattr(conf_settings, 'PERSISTENT_STORAGE'):
+        persistent_storage = conf_settings.PERSISTENT_STORAGE
+    else:
+        response = {"Message" : "Persistent Storage URI has not been configured please configure"}
+        status_code = status.HTTP_424_FAILED_DEPENDENCY
+        return response, status_code
+    id = request._request.path
+    id = id.replace("/models/","")
+    persistent_storage_models = persistent_storage + "/storage/" + id
+    models = requests.delete(persistent_storage_models)
+    if models.status_code == '204':
+        response = {'Message':'Model Deleted'}
+    else:
+        response = {'Message':models.text}
+    return response, models.status_code
+
 def update_labels(request):
     #Get the information from the model ID
     # See if the setting exists if not create it and leave it blank
