@@ -16,7 +16,49 @@ Create a new model from a CSV file
     'label_column' : 'The Labels for TF-IDF Training'<br /> 
 }
 
+## Model Management
+## GET
+Get a Model<br />
+Request:<br />
+http://server/models/{modelID}<br />
+Response:<br>
+
+[<br>
+    {<br>
+        "name": "7d895514-d1a9-4863-9dc4-4473b51aec15",<br>
+        "file_name": "BBC News Train_4NWuC0g.csv",<br>
+        "model_type": "K-MEANS",<br>
+        "num_topics": 5,<br>
+        "normalisation": "None",<br>
+        "topic_labels": {<br>
+            "1": "Sport",<br>
+            "2": "Politics",<br>
+            "3": "Technology",<br>
+            "4": "Economy",<br>
+            "5": "Sport"<br>
+        },
+        "save_model": "http://127.0.0.1:8001/models/models/7d895514-d1a9-4863-9dc4-4473b51aec15.sav",<br>
+        "topics_image": "http://127.0.0.1:8001/models/models/7d895514-d1a9-4863-9dc4-4473b51aec15.png"<br>
+    },
+    200
+]
+
+## PUT
+Update a Model<br />
+Request:<br />
+http://server/models/{modelID}<br />
+
+
+## Delete<br />
+Delete a model<br />
+Request:<br />
+http://server/models/{modelID}<br />
+
+
+## Listing Models
+
 ### GET
+http://server/models/<br />
 Get's a list of trained models - example response<br />
 [<br />
     {<br />
