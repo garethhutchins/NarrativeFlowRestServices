@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Users\ghutchin\Documents\UOR\Project\NarrativeFlowAnalyser\RestServices\.venv"
+VIRTUAL_ENV="C:\Users\garet\OneDrive\Documents\UOR\Project\Code\NarrativeFlowRestServices\.venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

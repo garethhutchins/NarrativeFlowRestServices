@@ -52,6 +52,11 @@ __all__ = [
     'ellipk',
     'ellipkinc',
     'ellipkm1',
+    'elliprc',
+    'elliprd',
+    'elliprf',
+    'elliprg',
+    'elliprj',
     'entr',
     'erf',
     'erfc',
@@ -145,6 +150,7 @@ __all__ = [
     'kv',
     'kve',
     'log1p',
+    'log_expit',
     'log_ndtr',
     'loggamma',
     'logit',
@@ -322,6 +328,11 @@ ellipj: np.ufunc
 ellipk: np.ufunc
 ellipkinc: np.ufunc
 ellipkm1: np.ufunc
+elliprc: np.ufunc
+elliprd: np.ufunc
+elliprf: np.ufunc
+elliprg: np.ufunc
+elliprj: np.ufunc
 entr: np.ufunc
 erf: np.ufunc
 erfc: np.ufunc
@@ -415,6 +426,7 @@ kolmogorov: np.ufunc
 kv: np.ufunc
 kve: np.ufunc
 log1p: np.ufunc
+log_expit: np.ufunc
 log_ndtr: np.ufunc
 loggamma: np.ufunc
 logit: np.ufunc

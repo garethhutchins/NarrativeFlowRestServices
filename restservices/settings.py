@@ -25,8 +25,11 @@ SECRET_KEY = 'django-insecure-zqo(zi#b3a=4kg6a8b%ada-bc=rgt=#ym=aleyg_0jd(p9$h9^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
+# monkey patch to get rid of message below in docker
+from django.http.request import HttpRequest
+HttpRequest.get_host = HttpRequest._get_raw_host
 
 # Application definition
 
@@ -131,5 +134,5 @@ REST_FRAMEWORK = {
 }
 
 #Custom Application Settings
-PERSISTENT_STORAGE = "http://127.0.0.1:8001"
-TIKA = "http://localhost:9998/tika"
+PERSISTENT_STORAGE = "http://persistent-storage:8001"
+TIKA = "http://tika:9998/tika"

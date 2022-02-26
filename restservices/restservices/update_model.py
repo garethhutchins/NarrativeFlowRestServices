@@ -21,7 +21,12 @@ def list_models():
         return response, status_code
     persistent_storage_models = persistent_storage + "/storage/"
     models = requests.get(persistent_storage_models)
-    models_json = json.loads(models.content)
+    try:
+        models_json = json.loads(models.content)
+    except:
+        response = {'Message':models.content,'URI':persistent_storage_models}
+        status_code = status.HTTP_400_BAD_REQUEST
+        return response, status_code
     return models_json
 
 def get_model(request):

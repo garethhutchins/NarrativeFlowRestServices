@@ -49,10 +49,18 @@ def update_settings(request):
             #It's no ok
             status_code = get_storage.status_code
         #Now check to see if it's what we expect
-        jr = json.loads(get_storage.text)
+        try:
+            jr = json.loads(get_storage.text)
+        except Exception as e:
+            response = {"Message" : "Error decoding json {}".format(get_storage.text)}
+            status_code = status.HTTP_400_BAD_REQUEST
+            return response, status_code
         if 'storage' in jr:
             #We can assume it's ok save the setting
-            conf_settings.PERSISTENT_STORAGE = jr['storage']
+            #Remove the end of the uri though
+            s_uri = jr['storage']
+            
+            conf_settings.PERSISTENT_STORAGE = s_uri.replace("/storage/",'')
             django.setup()
             status_code = status.HTTP_200_OK
             response = {"Message":"Persistent Storage URI Saved"}
