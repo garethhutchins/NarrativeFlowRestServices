@@ -3,20 +3,20 @@ import requests
 from django.conf import settings as conf_settings
 import json
 import nltk
-#nltk.download('stopwords')
+nltk.download('stopwords')
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
-#nltk.download('punkt')
+nltk.download('punkt')
 from nltk.stem.porter import PorterStemmer
 from nltk.probability import FreqDist
 from nltk.tokenize import sent_tokenize
 from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer 
 lemmatizer = WordNetLemmatizer()
-#nltk.download('wordnet')
+nltk.download('wordnet')
 #download pos
-#nltk.download('averaged_perceptron_tagger')
-#nltk.download('tagsets')
+nltk.download('averaged_perceptron_tagger')
+nltk.download('tagsets')
 import re
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.decomposition import NMF, LatentDirichletAllocation, TruncatedSVD

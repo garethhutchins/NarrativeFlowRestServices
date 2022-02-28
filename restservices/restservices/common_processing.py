@@ -24,12 +24,12 @@ from nltk.stem import WordNetLemmatizer
 import matplotlib.pyplot as plt
 
 lemmatizer = WordNetLemmatizer()
-#nltk.download('wordnet')
-#nltk.download('stopwords')
+nltk.download('wordnet')
+nltk.download('stopwords')
 #download pos
-#nltk.download('averaged_perceptron_tagger')
-#nltk.download('tagsets')
-#nltk.download('omw-1.4')
+nltk.download('averaged_perceptron_tagger')
+nltk.download('tagsets')
+nltk.download('omw-1.4')
 import re
 #Scikit for learning mechanisms
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
