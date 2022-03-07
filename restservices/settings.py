@@ -135,4 +135,5 @@ REST_FRAMEWORK = {
 
 #Custom Application Settings
 PERSISTENT_STORAGE = "http://persistent-storage:8001"
+#PERSISTENT_STORAGE = "http://127.0.0.1:8001"
 TIKA = "http://tika:9998/tika"

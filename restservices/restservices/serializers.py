@@ -27,6 +27,7 @@ class TrainTopicTableSerializer(Serializer):
    model_type = ChoiceField(choices = (("K-MEANS","K-MEANS"),("LDA","LDA"),("NMF","NMF"),("TF-IDF","TF-IDF")))
    num_topics = IntegerField()
    normalisation = ChoiceField(choices = (("None","None"),("Stemming","Stemming"),("Lemmatisation","Lemmatisation")))
+   label_column = CharField()
    class Meta:
       fields = ['file','selected_column','model_type','num_topics','normalisation','label_column']
 

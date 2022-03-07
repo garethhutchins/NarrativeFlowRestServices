@@ -183,6 +183,8 @@ def train_table(request):
         response = df
     if normalisation == "Lemmatisation" and model_type != 'K-MEANS':
         #Call the lemmatisation function on the table
+        df.replace('',np.nan,inplace=True)
+        df.dropna(inplace=True)
         df = df.apply(remove_stop_lem)
         response = df
     
