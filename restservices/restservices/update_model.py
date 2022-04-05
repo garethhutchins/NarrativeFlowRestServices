@@ -20,7 +20,12 @@ def list_models():
         status_code = status.HTTP_424_FAILED_DEPENDENCY
         return response, status_code
     persistent_storage_models = persistent_storage + "/storage/"
-    models = requests.get(persistent_storage_models)
+    try:
+        models = requests.get(persistent_storage_models)
+    except Exception as e:
+        response = {'Message':str(e),'URI':persistent_storage_models}
+        status_code = status.HTTP_400_BAD_REQUEST
+        return response, status_code
     try:
         models_json = json.loads(models.content)
     except:
