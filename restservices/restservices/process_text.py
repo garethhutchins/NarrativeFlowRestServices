@@ -88,7 +88,7 @@ def predict_text(request):
     topics = []
     scores = []
     text_window_contents = []
-    while pos < (num_words - window_size):
+    while pos <= (num_words - window_size):
         current_block = ' '.join(words[pos:(pos+window_size)])
         #First check to see if it's the K-Means model
         if saved_model['model_type'] == 'K-MEANS':
@@ -135,6 +135,8 @@ def predict_text(request):
         scores.append(window_pred.iloc[:,1])
         text_window_contents.append(' '.join(words[pos:(pos+window_size)]))
         pos += window_slide
+        if window_slide == 0:
+            pos = window_size
     if saved_model['model_type'] == 'K-MEANS':
         #We don't have scores for K-MEANS
         f_results = pd.DataFrame({'Text':text_window_contents,'Topics':topics})
