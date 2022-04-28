@@ -103,7 +103,7 @@ def update_labels(request):
             plot_image = plot_kmeans(list(json_topics.values()),saved_model['vectorizer'])
         else:    
             feature_names=saved_model['vectorizer'].get_feature_names()
-            plot_image = plot_top_words(saved_model['model'], feature_names, models_json['num_topics'], 'Topics in NMF model',models_json['num_topics'],json_topics)
+            plot_image = plot_top_words(saved_model['model'], feature_names, models_json['num_topics'], 'Topics in ' + models_json['model_type'] + ' model',models_json['num_topics'],json_topics)
         #Save the plot
         plot_image.savefig(models_json['name'] + '.png')
         #Save the model again so it can be updated
