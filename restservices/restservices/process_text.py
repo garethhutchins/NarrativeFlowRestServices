@@ -104,6 +104,8 @@ def predict_text(request):
             text_window_contents.append(' '.join(words[pos:(pos+window_size)]))
             #Move to next Window size
             pos += window_slide
+            if window_slide == 0:
+                pos = window_size
             continue
         if saved_model['normalisation'] == 'Lemmatisation':
             current_block = remove_stop_lem(current_block)
