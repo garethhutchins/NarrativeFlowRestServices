@@ -17,3 +17,4 @@ services:
     ports:
       - "8000:8000"
     #network_mode: host
+    image: garethhutchins/nf_rest_services
