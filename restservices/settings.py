@@ -133,6 +133,7 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10
 }
 
+
 #Custom Application Settings
 PERSISTENT_STORAGE = "http://persistent-storage:8001"
 #PERSISTENT_STORAGE = "http://127.0.0.1:8001"
